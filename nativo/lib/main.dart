@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
       setState(() {
         _sum = sum;
       });
-    } catch (e) {
+    } on PlatformException {
       setState(() {
         _sum = 0;
       });
