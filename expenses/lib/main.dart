@@ -11,25 +11,6 @@ class ExpensesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = ThemeData(
-      primarySwatch: Colors.purple,
-      fontFamily: "Quicksand",
-      textTheme: ThemeData.light().textTheme.copyWith(
-            headline6: TextStyle(
-              fontFamily: "OpenSans",
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-      appBarTheme: AppBarTheme(
-        titleTextStyle: TextStyle(
-          fontFamily: "OpenSans",
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    );
-
     return MaterialApp(
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
@@ -41,9 +22,22 @@ class ExpensesApp extends StatelessWidget {
         Locale("pt"),
       ],
       title: 'Expenses App',
-      theme: theme.copyWith(
-        colorScheme: theme.colorScheme.copyWith(
-          secondary: Colors.amber,
+      theme: ThemeData(
+        primarySwatch: Colors.purple,
+        fontFamily: "Quicksand",
+        textTheme: ThemeData.light().textTheme.copyWith(
+              headline6: TextStyle(
+                fontFamily: "OpenSans",
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+        appBarTheme: AppBarTheme(
+          titleTextStyle: TextStyle(
+            fontFamily: "OpenSans",
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       debugShowCheckedModeBanner: false,
