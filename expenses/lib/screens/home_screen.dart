@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
     ];
 
     final appBar = AppBar(
-      title: Text("Despesas Pessoais"),
+      title: const Text("Despesas Pessoais"),
       actions: actions,
     );
 
@@ -142,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Platform.isIOS
         ? CupertinoPageScaffold(
             navigationBar: CupertinoNavigationBar(
-              middle: Text('Despesas Pessoais'),
+              middle: const Text('Despesas Pessoais'),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: actions,
@@ -157,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ? Container()
                 : FloatingActionButton(
                     onPressed: () => _openTransactionFormModal(context),
-                    child: Icon(Icons.add),
+                    child: const Icon(Icons.add),
                   ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
