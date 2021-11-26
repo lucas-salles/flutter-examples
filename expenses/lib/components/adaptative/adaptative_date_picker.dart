@@ -18,7 +18,7 @@ class AdaptativeDatePicker extends StatelessWidget {
       initialDate: DateTime.now(),
       firstDate: DateTime(2020),
       lastDate: DateTime.now(),
-      locale: Locale("pt", "BR"),
+      locale: const Locale("pt", "BR"),
     );
 
     if (pickedDate == null) {

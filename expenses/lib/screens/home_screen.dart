@@ -20,8 +20,8 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _showChart = false;
 
   List<Transaction> get _recentTransactions => _transactions
-      .where((transaction) =>
-          transaction.date.isAfter(DateTime.now().subtract(Duration(days: 7))))
+      .where((transaction) => transaction.date
+          .isAfter(DateTime.now().subtract(const Duration(days: 7))))
       .toList();
 
   void _addTransaction(String title, double value, DateTime date) {
