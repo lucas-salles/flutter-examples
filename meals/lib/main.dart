@@ -22,6 +22,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   Settings settings = Settings();
   List<Meal> _availableMeals = DUMMY_MEALS;
+  List<Meal> _favoriteMeals = [];
 
   void _filterMeals(Settings settings) {
     setState(() {
@@ -39,6 +40,18 @@ class _MyAppState extends State<MyApp> {
             !filterVegetarian;
       }).toList();
     });
+  }
+
+  void _toggleFavorite(Meal meal) {
+    setState(() {
+      _favoriteMeals.contains(meal)
+          ? _favoriteMeals.remove(meal)
+          : _favoriteMeals.add(meal);
+    });
+  }
+
+  bool _isFavorite(Meal meal) {
+    return _favoriteMeals.contains(meal);
   }
 
   @override
@@ -64,11 +77,16 @@ class _MyAppState extends State<MyApp> {
       ),
       debugShowCheckedModeBanner: false,
       routes: {
-        AppRoutes.HOME: (context) => const TabsScreen(),
+        AppRoutes.HOME: (context) => TabsScreen(
+              favoriteMeals: _favoriteMeals,
+            ),
         AppRoutes.CATEGORIES_MEALS: (context) => CategoriesMealsScreen(
               meals: _availableMeals,
             ),
-        AppRoutes.MEAL_DETAIL: (context) => const MealDetailScreen(),
+        AppRoutes.MEAL_DETAIL: (context) => MealDetailScreen(
+              isFavorite: _isFavorite,
+              onToggleFavorite: _toggleFavorite,
+            ),
         AppRoutes.SETTINGS: (context) => SettingsScreen(
               settings: settings,
               onSettingsChanged: _filterMeals,
