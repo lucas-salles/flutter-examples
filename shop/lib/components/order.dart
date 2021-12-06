@@ -9,18 +9,6 @@ class OrderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return Card(
-    //   child: ListTile(
-    //     title: Text("R\$ ${order.total.toStringAsFixed(2)}"),
-    //     subtitle: Text(
-    //       DateFormat("dd/MM/yyyy HH:mm").format(order.date),
-    //     ),
-    //     trailing: IconButton(
-    //       onPressed: () {},
-    //       icon: const Icon(Icons.expand_more),
-    //     ),
-    //   ),
-    // );
     return Card(
       child: ExpansionTile(
         title: Text("R\$ ${order.total.toStringAsFixed(2)}"),
