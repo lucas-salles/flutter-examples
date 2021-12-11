@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ta_caro/modules/login/repositories/login_repository.dart';
 import 'package:ta_caro/shared/models/user_model.dart';
-import 'package:ta_caro/shared/services/app_database.dart';
 import 'package:ta_caro/shared/utils/app_state.dart';
 
 class CreateAccountController extends ChangeNotifier {

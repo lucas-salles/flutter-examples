@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ta_caro/modules/login/login_controller.dart';
-import 'package:ta_caro/modules/login/repositories/login_repository.dart';
 import 'package:ta_caro/modules/login/repositories/login_repository_impl.dart';
 import 'package:ta_caro/shared/services/app_database.dart';
 import 'package:ta_caro/shared/theme/app_theme.dart';
