@@ -9,7 +9,8 @@
             "request": "launch",
             "type": "dart",
             "args": [
-                "--dart-define", "FIREBASESEURL=YOUR_URL",
+                "--dart-define", "FIREBASESEURL=YOUR_FIREBASE_URL",
+                "--dart-define", "FIREBASESEKEY=YOUR_FIREBASE_KEY",
             ]
         },
         {
