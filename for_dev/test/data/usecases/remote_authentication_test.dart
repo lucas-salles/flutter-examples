@@ -5,25 +5,12 @@ import 'package:mockito/mockito.dart';
 
 import 'package:for_dev/domain/usecases/usecases.dart';
 
+import 'package:for_dev/data/usecases/usecases.dart';
+import 'package:for_dev/data/http/http.dart';
+
 // Annotation which generates the remote_authentication.test.mocks.dart library and the MockHttpClient class.
 @GenerateNiceMocks([MockSpec<HttpClient>()])
 import './remote_authentication_test.mocks.dart';
-
-class RemoteAuthentication {
-  final HttpClient httpClient;
-  final String url;
-
-  RemoteAuthentication({required this.httpClient, required this.url});
-
-  Future<void> auth(AuthenticationParams params) async {
-    final body = {'email': params.email, 'password': params.secret};
-    await httpClient.request(url: url, method: 'post', body: body);
-  }
-}
-
-abstract class HttpClient {
-  Future<void> request({required String url, required String method, Map body});
-}
 
 void main() {
   late RemoteAuthentication sut;
