@@ -23,12 +23,18 @@ abstract class HttpClient {
 }
 
 void main() {
-  test('Should call HttpClient with correct values', () async {
-    final httpClient = MockHttpClient();
-    final url = faker.internet.httpUrl();
-    // sut = system under test
-    final sut = RemoteAuthentication(httpClient: httpClient, url: url);
+  late RemoteAuthentication sut;
+  late MockHttpClient httpClient;
+  late String url;
 
+  setUp(() {
+    httpClient = MockHttpClient();
+    url = faker.internet.httpUrl();
+    // sut = system under test
+    sut = RemoteAuthentication(httpClient: httpClient, url: url);
+  });
+
+  test('Should call HttpClient with correct values', () async {
     await sut.auth();
 
     verify(httpClient.request(url: url, method: 'post'));
