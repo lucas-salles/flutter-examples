@@ -3,10 +3,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+import 'package:for_dev/domain/helpers/helpers.dart';
 import 'package:for_dev/domain/usecases/usecases.dart';
 
-import 'package:for_dev/data/usecases/usecases.dart';
 import 'package:for_dev/data/http/http.dart';
+import 'package:for_dev/data/usecases/usecases.dart';
 
 // Annotation which generates the remote_authentication.test.mocks.dart library and the MockHttpClient class.
 @GenerateNiceMocks([MockSpec<HttpClient>()])
@@ -34,5 +35,19 @@ void main() {
       method: 'post',
       body: {'email': params.email, 'password': params.secret},
     ));
+  });
+
+  test('Should throw UnexpectedError if HttpClient returns 400 ', () async {
+    when(httpClient.request(
+      url: anyNamed('url'),
+      method: anyNamed('method'),
+      body: anyNamed('body'),
+    )).thenThrow(HttpError.badRequest);
+
+    final params = AuthenticationParams(
+        email: faker.internet.email(), secret: faker.internet.password());
+    final response = sut.auth(params);
+
+    expect(response, throwsA(DomainError.unexpected));
   });
 }
