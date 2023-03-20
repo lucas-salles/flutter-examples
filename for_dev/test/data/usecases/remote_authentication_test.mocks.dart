@@ -25,11 +25,18 @@ import 'remote_authentication_test.dart' as _i2;
 /// See the documentation for Mockito's code generation for more information.
 class MockHttpClient extends _i1.Mock implements _i2.HttpClient {
   @override
-  _i3.Future<void> request({required String? url}) => (super.noSuchMethod(
+  _i3.Future<void> request({
+    required String? url,
+    required String? method,
+  }) =>
+      (super.noSuchMethod(
         Invocation.method(
           #request,
           [],
-          {#url: url},
+          {
+            #url: url,
+            #method: method,
+          },
         ),
         returnValue: _i3.Future<void>.value(),
         returnValueForMissingStub: _i3.Future<void>.value(),
