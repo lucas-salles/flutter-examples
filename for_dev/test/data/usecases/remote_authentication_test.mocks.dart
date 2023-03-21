@@ -24,7 +24,7 @@ import 'package:mockito/mockito.dart' as _i1;
 /// See the documentation for Mockito's code generation for more information.
 class MockHttpClient extends _i1.Mock implements _i2.HttpClient {
   @override
-  _i3.Future<void> request({
+  _i3.Future<Map<dynamic, dynamic>> request({
     required String? url,
     required String? method,
     Map<dynamic, dynamic>? body,
@@ -39,7 +39,9 @@ class MockHttpClient extends _i1.Mock implements _i2.HttpClient {
             #body: body,
           },
         ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
+        returnValue:
+            _i3.Future<Map<dynamic, dynamic>>.value(<dynamic, dynamic>{}),
+        returnValueForMissingStub:
+            _i3.Future<Map<dynamic, dynamic>>.value(<dynamic, dynamic>{}),
+      ) as _i3.Future<Map<dynamic, dynamic>>);
 }
