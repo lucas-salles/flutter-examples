@@ -98,5 +98,13 @@ void main() {
 
       expect(response, {});
     });
+
+    test('Should return empty map if post returns 204', () async {
+      mockResponse(204, body: '');
+
+      final response = await sut.request(url: url, method: 'post');
+
+      expect(response, {});
+    });
   });
 }
