@@ -14,6 +14,7 @@ import 'package:for_dev/data/usecases/usecases.dart';
 import './remote_authentication_test.mocks.dart';
 
 void main() {
+  // sut = system under test
   late RemoteAuthentication sut;
   late MockHttpClient httpClient;
   late String url;
@@ -41,7 +42,6 @@ void main() {
   setUp(() {
     httpClient = MockHttpClient();
     url = faker.internet.httpUrl();
-    // sut = system under test
     sut = RemoteAuthentication(httpClient: httpClient, url: url);
     params = AuthenticationParams(
         email: faker.internet.email(), secret: faker.internet.password());
