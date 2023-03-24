@@ -4,6 +4,8 @@ import 'package:http/http.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+import 'package:for_dev/data/http/http.dart';
+
 import 'package:for_dev/infra/http/http.dart';
 
 // Annotation which generates the http_adapter_test.mocks.dart library and the MockClient class.
@@ -89,6 +91,14 @@ void main() {
       final response = await sut.request(url: url, method: 'post');
 
       expect(response, {});
+    });
+
+    test('Should return BadRequestError if post returns 400', () async {
+      mockResponse(400);
+
+      final future = sut.request(url: url, method: 'post');
+
+      expect(future, throwsA(HttpError.badRequest));
     });
   });
 }
