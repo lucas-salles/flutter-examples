@@ -23,14 +23,20 @@ class HttpAdapter {
 }
 
 void main() {
+  // sut = system under test
+  late HttpAdapter sut;
+  late MockClient client;
+  late Uri url;
+
+  setUp(() {
+    client = MockClient();
+    sut = HttpAdapter(client);
+    final urlString = faker.internet.httpUrl();
+    url = Uri.parse(urlString);
+  });
+
   group('post', () {
     test('Should call post with correct values', () async {
-      final client = MockClient();
-      // sut = system under test
-      final sut = HttpAdapter(client);
-      final urlString = faker.internet.httpUrl();
-      final url = Uri.parse(urlString);
-
       await sut.request(url: url, method: 'post');
 
       verify(client.post(
