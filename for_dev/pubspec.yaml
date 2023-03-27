@@ -44,6 +44,7 @@ dev_dependencies:
   mockito: ^5.3.2
   build_runner: ^2.3.3
   faker: ^2.1.0
+  flutter_launcher_icons: ^0.12.0
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -94,3 +95,11 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_icons:
+  ios: true
+  android: true
+  image_path_android: lib/ui/assets/icon/android.png
+  image_path_ios: lib/ui/assets/icon/ios.png
+  adaptive_icon_background: lib/ui/assets/icon/background.png
+  adaptive_icon_foreground: lib/ui/assets/icon/foreground.png
