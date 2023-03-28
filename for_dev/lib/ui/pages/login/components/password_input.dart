@@ -3,24 +3,24 @@ import 'package:provider/provider.dart';
 
 import '../login_presenter.dart';
 
-class EmailInput extends StatelessWidget {
-  const EmailInput({super.key});
+class PasswordInput extends StatelessWidget {
+  const PasswordInput({super.key});
 
   @override
   Widget build(BuildContext context) {
     final presenter = Provider.of<LoginPresenter>(context);
 
     return StreamBuilder<String>(
-      stream: presenter.emailErrorStream,
+      stream: presenter.passwordErrorStream,
       builder: (context, snapshot) {
         return TextFormField(
           decoration: InputDecoration(
-            labelText: 'Email',
-            icon: const Icon(Icons.email),
+            labelText: 'Senha',
+            icon: const Icon(Icons.lock),
             errorText: snapshot.data?.isEmpty == true ? null : snapshot.data,
           ),
-          keyboardType: TextInputType.emailAddress,
-          onChanged: presenter.validateEmail,
+          obscureText: true,
+          onChanged: presenter.validatePassword,
         );
       },
     );
