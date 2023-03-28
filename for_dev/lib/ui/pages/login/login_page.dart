@@ -51,7 +51,9 @@ class LoginPage extends StatelessWidget {
                             decoration: InputDecoration(
                               labelText: 'Senha',
                               icon: const Icon(Icons.lock),
-                              errorText: snapshot.data,
+                              errorText: snapshot.data?.isEmpty == true
+                                  ? null
+                                  : snapshot.data,
                             ),
                             obscureText: true,
                             onChanged: presenter?.validatePassword,
