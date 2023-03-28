@@ -36,6 +36,10 @@ class LoginPage extends StatelessWidget {
                 },
                 barrierDismissible: false,
               );
+            } else {
+              if (Navigator.canPop(context)) {
+                Navigator.of(context).pop();
+              }
             }
           });
 
