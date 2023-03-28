@@ -42,6 +42,12 @@ class MockLoginPresenter extends _i1.Mock implements _i2.LoginPresenter {
         returnValueForMissingStub: _i3.Stream<bool>.empty(),
       ) as _i3.Stream<bool>);
   @override
+  _i3.Stream<bool> get isLoadingStream => (super.noSuchMethod(
+        Invocation.getter(#isLoadingStream),
+        returnValue: _i3.Stream<bool>.empty(),
+        returnValueForMissingStub: _i3.Stream<bool>.empty(),
+      ) as _i3.Stream<bool>);
+  @override
   void validateEmail(String? email) => super.noSuchMethod(
         Invocation.method(
           #validateEmail,
