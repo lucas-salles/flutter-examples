@@ -99,4 +99,15 @@ void main() {
     sut.validateEmail(password);
     sut.validatePassword(password);
   });
+
+  test('Should emit form valid event if form is valid', () async {
+    sut.emailErrorStream.listen(expectAsync1((error) => expect(error, null)));
+    sut.passwordErrorStream
+        .listen(expectAsync1((error) => expect(error, null)));
+    expectLater(sut.isValidFormStream, emitsInOrder([false, true]));
+
+    sut.validateEmail(password);
+    await Future.delayed(Duration.zero);
+    sut.validatePassword(password);
+  });
 }
