@@ -86,7 +86,7 @@ void main() {
     sut.validatePassword(password);
   });
 
-  test('Should emit form invalid if any field is invalid', () {
+  test('Should emit form invalid event if any field is invalid', () {
     mockValidation(field: 'email', value: 'error');
 
     sut.emailErrorStream
