@@ -14,7 +14,6 @@ import 'package:for_dev/data/usecases/usecases.dart';
 import './remote_authentication_test.mocks.dart';
 
 void main() {
-  // sut = system under test
   late RemoteAuthentication sut;
   late MockHttpClient httpClient;
   late String url;
