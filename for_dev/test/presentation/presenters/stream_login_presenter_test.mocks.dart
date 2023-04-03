@@ -3,9 +3,8 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:for_dev/presentation/protocols/validation.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
-
-import 'stream_login_presenter_test.dart' as _i2;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values

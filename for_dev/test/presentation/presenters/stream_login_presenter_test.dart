@@ -5,13 +5,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+import 'package:for_dev/presentation/protocols/validation.dart';
+
 // Annotation which generates the stream_login_presenter_test.mocks.dart library and the MockValidation class.
 @GenerateNiceMocks([MockSpec<Validation>()])
 import './stream_login_presenter_test.mocks.dart';
-
-abstract class Validation {
-  String? validate({required String field, required String value});
-}
 
 class LoginState {
   String? emailError;
