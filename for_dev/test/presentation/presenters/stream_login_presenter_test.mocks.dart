@@ -23,7 +23,7 @@ import 'stream_login_presenter_test.dart' as _i2;
 /// See the documentation for Mockito's code generation for more information.
 class MockValidation extends _i1.Mock implements _i2.Validation {
   @override
-  String validate({
+  String? validate({
     required String? field,
     required String? value,
   }) =>
@@ -36,7 +36,6 @@ class MockValidation extends _i1.Mock implements _i2.Validation {
             #value: value,
           },
         ),
-        returnValue: '',
-        returnValueForMissingStub: '',
-      ) as String);
+        returnValueForMissingStub: null,
+      ) as String?);
 }
