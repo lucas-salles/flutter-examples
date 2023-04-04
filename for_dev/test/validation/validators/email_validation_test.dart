@@ -14,17 +14,19 @@ class EmailValidation implements FieldValidation {
 }
 
 void main() {
-  test('Should return null if email is empty', () {
-    const sut = EmailValidation('any_field');
+  late EmailValidation sut;
 
+  setUp(() {
+    sut = const EmailValidation('any_field');
+  });
+
+  test('Should return null if email is empty', () {
     final error = sut.validate('');
 
     expect(error, null);
   });
 
   test('Should return null if email is null', () {
-    const sut = EmailValidation('any_field');
-
     final error = sut.validate(null);
 
     expect(error, null);
