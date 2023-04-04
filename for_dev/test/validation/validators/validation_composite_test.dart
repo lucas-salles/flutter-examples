@@ -2,30 +2,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:for_dev/presentation/protocols/protocols.dart';
 import 'package:for_dev/validation/protocols/protocols.dart';
+import 'package:for_dev/validation/validators/validators.dart';
 
 // Annotation which generates the validation_composite_test.mocks.dart library and the MockValidation and MockAuthentication class.
 @GenerateNiceMocks([MockSpec<FieldValidation>()])
 import './validation_composite_test.mocks.dart';
-
-class ValidationComposite implements Validation {
-  final List<FieldValidation> validations;
-
-  const ValidationComposite(this.validations);
-
-  @override
-  String? validate({required String field, required String value}) {
-    String? error;
-    for (final validation in validations.where((v) => v.field == field)) {
-      error = validation.validate(value);
-      if (error?.isNotEmpty == true) {
-        return error;
-      }
-    }
-    return error;
-  }
-}
 
 void main() {
   late ValidationComposite sut;
