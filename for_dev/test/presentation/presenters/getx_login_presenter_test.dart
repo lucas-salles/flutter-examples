@@ -10,16 +10,22 @@ import 'package:for_dev/domain/usecases/usecases.dart';
 import 'package:for_dev/presentation/presenters/presenters.dart';
 import 'package:for_dev/presentation/protocols/protocols.dart';
 
-// Annotation which generates the getx_login_presenter_test.mocks.dart library and the MockValidation and MockAuthentication class.
-@GenerateNiceMocks([MockSpec<Validation>(), MockSpec<Authentication>()])
+// Annotation which generates the getx_login_presenter_test.mocks.dart library and the MockValidation, MockAuthentication and MockSaveCurrentAccount class.
+@GenerateNiceMocks([
+  MockSpec<Validation>(),
+  MockSpec<Authentication>(),
+  MockSpec<SaveCurrentAccount>()
+])
 import './getx_login_presenter_test.mocks.dart';
 
 void main() {
   late GetxLoginPresenter sut;
   late MockAuthentication authentication;
   late MockValidation validation;
+  late MockSaveCurrentAccount saveCurrentAccount;
   late String email;
   late String password;
+  late String token;
 
   PostExpectation mockValidationCall(String? field) => when(validation.validate(
       field: field ?? anyNamed('field'), value: anyNamed('value')));
@@ -31,8 +37,7 @@ void main() {
   PostExpectation mockAuthenticationCall() => when(authentication.auth(any));
 
   void mockAuthentication() {
-    mockAuthenticationCall()
-        .thenAnswer((_) async => AccountEntity(faker.guid.guid()));
+    mockAuthenticationCall().thenAnswer((_) async => AccountEntity(token));
   }
 
   void mockAuthenticationError(DomainError error) {
@@ -42,10 +47,15 @@ void main() {
   setUp(() {
     validation = MockValidation();
     authentication = MockAuthentication();
+    saveCurrentAccount = MockSaveCurrentAccount();
     sut = GetxLoginPresenter(
-        validation: validation, authentication: authentication);
+      validation: validation,
+      authentication: authentication,
+      saveCurrentAccount: saveCurrentAccount,
+    );
     email = faker.internet.email();
     password = faker.internet.password();
+    token = faker.guid.guid();
     mockValidation();
     mockAuthentication();
   });
@@ -139,6 +149,15 @@ void main() {
     verify(authentication
             .auth(AuthenticationParams(email: email, secret: password)))
         .called(1);
+  });
+
+  test('Should call SaveCurrentAccount with correct value', () async {
+    sut.validateEmail(email);
+    sut.validatePassword(password);
+
+    await sut.auth();
+
+    verify(saveCurrentAccount.save(AccountEntity(token))).called(1);
   });
 
   test('Should emit correct events on Authentication success', () async {
