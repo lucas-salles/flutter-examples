@@ -44,6 +44,13 @@ void main() {
     mockAuthenticationCall().thenThrow(error);
   }
 
+  PostExpectation mockSaveCurrentAccountCall() =>
+      when(saveCurrentAccount.save(any));
+
+  void mockSaveCurrentAccountError() {
+    mockSaveCurrentAccountCall().thenThrow(DomainError.unexpected);
+  }
+
   setUp(() {
     validation = MockValidation();
     authentication = MockAuthentication();
@@ -151,6 +158,29 @@ void main() {
         .called(1);
   });
 
+  test('Should call SaveCurrentAccount with correct value', () async {
+    sut.validateEmail(email);
+    sut.validatePassword(password);
+
+    await sut.auth();
+
+    verify(saveCurrentAccount.save(AccountEntity(token))).called(1);
+  });
+
+  test('Should emit UnexpectedError if SaveCurrentAccount fails', () async {
+    mockSaveCurrentAccountError();
+    sut.validateEmail(email);
+    sut.validatePassword(password);
+
+    expectLater(sut.isLoadingStream, emitsInOrder([true, false]));
+    expectLater(
+        sut.mainErrorStream,
+        emitsInOrder(
+            [null, 'Algo errado aconteceu. Tente novamente em breve.']));
+
+    await sut.auth();
+  });
+
   test('Should emit correct events on Authentication success', () async {
     sut.validateEmail(email);
     sut.validatePassword(password);
@@ -160,13 +190,13 @@ void main() {
     await sut.auth();
   });
 
-  test('Should call SaveCurrentAccount with correct value', () async {
+  test('Should change page on success', () async {
     sut.validateEmail(email);
     sut.validatePassword(password);
 
-    await sut.auth();
+    expectLater(sut.navigateToStream, emitsInOrder([null, '/surveys']));
 
-    verify(saveCurrentAccount.save(AccountEntity(token))).called(1);
+    await sut.auth();
   });
 
   test('Should emit correct events on InvalidCredentialsError', () async {
