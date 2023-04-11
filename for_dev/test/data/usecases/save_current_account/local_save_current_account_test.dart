@@ -40,8 +40,7 @@ void main() {
     ));
   });
 
-  test('Should throw UnexpectedError if SaveSecureCacheStorage throws',
-      () async {
+  test('Should throw UnexpectedError if SaveSecureCacheStorage throws', () {
     mockError();
 
     final future = sut.save(account);
