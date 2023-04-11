@@ -6,9 +6,9 @@ import 'components/components.dart';
 import 'login_presenter.dart';
 
 class LoginPage extends StatefulWidget {
-  final LoginPresenter? presenter;
+  final LoginPresenter presenter;
 
-  const LoginPage({super.key, this.presenter});
+  const LoginPage(this.presenter, {super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -18,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void dispose() {
     super.dispose();
-    widget.presenter?.dispose();
+    widget.presenter.dispose();
   }
 
   @override
@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       body: Builder(
         builder: (context) {
-          widget.presenter?.isLoadingStream.listen((isLoading) {
+          widget.presenter.isLoadingStream?.listen((isLoading) {
             if (isLoading) {
               showLoading(context);
             } else {
@@ -34,8 +34,8 @@ class _LoginPageState extends State<LoginPage> {
             }
           });
 
-          widget.presenter?.mainErrorStream.listen((error) {
-            showErrorMessage(context, error);
+          widget.presenter.mainErrorStream?.listen((error) {
+            showErrorMessage(context, error!);
           });
 
           return SingleChildScrollView(

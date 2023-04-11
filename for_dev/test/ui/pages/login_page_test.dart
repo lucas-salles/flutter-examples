@@ -54,9 +54,8 @@ void main() {
     initStreams();
     mockStreams();
     final loginPage = MaterialApp(
-        home: LoginPage(
-      presenter: presenter,
-    ));
+      home: LoginPage(presenter),
+    );
     await tester.pumpWidget(loginPage);
   }
 
