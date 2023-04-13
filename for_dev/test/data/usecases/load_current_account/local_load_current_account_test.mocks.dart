@@ -26,12 +26,12 @@ import 'local_load_current_account_test.dart' as _i2;
 class MockFetchSecureCacheStorage extends _i1.Mock
     implements _i2.FetchSecureCacheStorage {
   @override
-  _i3.Future<void> fetchSecure(String? key) => (super.noSuchMethod(
+  _i3.Future<String> fetchSecure(String? key) => (super.noSuchMethod(
         Invocation.method(
           #fetchSecure,
           [key],
         ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
+        returnValue: _i3.Future<String>.value(''),
+        returnValueForMissingStub: _i3.Future<String>.value(''),
+      ) as _i3.Future<String>);
 }
