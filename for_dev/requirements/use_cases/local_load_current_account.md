@@ -7,4 +7,4 @@
 
 > ## Exceção - Falha ao carregar dados do cache
 
-1. Sistema retorna uma mensagem de erro inesperado
+1. ✅ Sistema retorna uma mensagem de erro inesperado
