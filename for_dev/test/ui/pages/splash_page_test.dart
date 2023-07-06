@@ -6,43 +6,11 @@ import 'package:get/get.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+import 'package:for_dev/ui/pages/pages.dart';
+
 // Annotation which generates the splash_page_test.mocks.dart library and the MockSplashPresenter class.
 @GenerateNiceMocks([MockSpec<SplashPresenter>()])
 import './splash_page_test.mocks.dart';
-
-class SplashPage extends StatelessWidget {
-  final SplashPresenter presenter;
-
-  const SplashPage({super.key, required this.presenter});
-
-  @override
-  Widget build(BuildContext context) {
-    presenter.loadCurrentAccount();
-
-    return Scaffold(
-      appBar: AppBar(title: const Text('4Dev')),
-      body: Builder(
-        builder: (context) {
-          presenter.navigateToStream.listen((page) {
-            if (page.isNotEmpty) {
-              Get.offAllNamed(page);
-            }
-          });
-
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
-      ),
-    );
-  }
-}
-
-abstract class SplashPresenter {
-  Stream<String> get navigateToStream;
-
-  Future<void> loadCurrentAccount();
-}
 
 void main() {
   late MockSplashPresenter presenter;
