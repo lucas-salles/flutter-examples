@@ -25,6 +25,12 @@ import 'splash_page_test.dart' as _i2;
 /// See the documentation for Mockito's code generation for more information.
 class MockSplashPresenter extends _i1.Mock implements _i2.SplashPresenter {
   @override
+  _i3.Stream<String> get navigateToStream => (super.noSuchMethod(
+        Invocation.getter(#navigateToStream),
+        returnValue: _i3.Stream<String>.empty(),
+        returnValueForMissingStub: _i3.Stream<String>.empty(),
+      ) as _i3.Stream<String>);
+  @override
   _i3.Future<void> loadCurrentAccount() => (super.noSuchMethod(
         Invocation.method(
           #loadCurrentAccount,
