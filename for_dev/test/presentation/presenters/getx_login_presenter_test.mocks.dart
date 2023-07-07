@@ -37,7 +37,7 @@ class _FakeAccountEntity_0 extends _i1.SmartFake implements _i2.AccountEntity {
 /// See the documentation for Mockito's code generation for more information.
 class MockValidation extends _i1.Mock implements _i3.Validation {
   @override
-  String? validate({
+  _i3.ValidationError? validate({
     required String? field,
     required String? value,
   }) =>
@@ -51,7 +51,7 @@ class MockValidation extends _i1.Mock implements _i3.Validation {
           },
         ),
         returnValueForMissingStub: null,
-      ) as String?);
+      ) as _i3.ValidationError?);
 }
 
 /// A class which mocks [Authentication].
