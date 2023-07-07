@@ -12,7 +12,7 @@ extension UIErrorExtension on UIError {
       case UIError.invalidCredentials:
         return R.strings.msgInvalidCredentials;
       default:
-        return R.strings.msgUnexpected;
+        return R.strings.msgUnexpectedError;
     }
   }
 }

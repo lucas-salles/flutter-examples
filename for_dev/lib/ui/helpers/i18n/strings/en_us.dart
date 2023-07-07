@@ -8,7 +8,7 @@ class EnUs implements Translations {
   @override
   String get msgRequiredField => 'Required field.';
   @override
-  String get msgUnexpected => 'Something wrong happened. Try again soon.';
+  String get msgUnexpectedError => 'Something wrong happened. Try again soon.';
 
   @override
   String get addAccount => 'Add account';
