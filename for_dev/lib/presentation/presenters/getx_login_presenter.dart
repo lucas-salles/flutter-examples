@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../../ui/helpers/errors/errors.dart';
+import '../../ui/helpers/helpers.dart';
 import '../../ui/pages/pages.dart';
 
 import '../../domain/helpers/helpers.dart';

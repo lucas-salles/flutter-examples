@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 
 import '../../ui/helpers/helpers.dart';
+
+import '../../domain/helpers/helpers.dart';
 import '../../domain/usecases/usecases.dart';
 
 import '../protocols/protocols.dart';
@@ -14,7 +16,9 @@ class GetxSignUpPresenter extends GetxController {
   final _nameError = Rxn<UIError>();
   final _passwordError = Rxn<UIError>();
   final _passwordConfirmationError = Rxn<UIError>();
+  final _mainError = Rxn<UIError>();
   final _isFormValid = false.obs;
+  final _isLoading = false.obs;
 
   String? _name;
   String? _email;
@@ -32,7 +36,9 @@ class GetxSignUpPresenter extends GetxController {
   Stream<UIError?>? get passwordErrorStream => _passwordError.stream;
   Stream<UIError?>? get passwordConfirmationErrorStream =>
       _passwordConfirmationError.stream;
+  Stream<UIError?>? get mainErrorStream => _mainError.stream;
   Stream<bool>? get isValidFormStream => _isFormValid.stream;
+  Stream<bool>? get isLoadingStream => _isLoading.stream;
 
   void validateEmail(String email) {
     _email = email;
@@ -83,12 +89,21 @@ class GetxSignUpPresenter extends GetxController {
   }
 
   Future<void> signUp() async {
-    final account = await addAccount.add(AddAccountParams(
-      name: _name!,
-      email: _email!,
-      password: _password!,
-      passwordConfirmation: _passwordConfirmation!,
-    ));
-    await saveCurrentAccount.save(account);
+    try {
+      _isLoading.value = true;
+      final account = await addAccount.add(AddAccountParams(
+        name: _name!,
+        email: _email!,
+        password: _password!,
+        passwordConfirmation: _passwordConfirmation!,
+      ));
+      await saveCurrentAccount.save(account);
+    } on DomainError catch (error) {
+      switch (error) {
+        default:
+          _mainError.value = UIError.unexpected;
+      }
+      _isLoading.value = false;
+    }
   }
 }
