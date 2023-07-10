@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../components/components.dart';
 import '../../helpers/helpers.dart';
 import 'components/components.dart';
+import 'signup_presenter.dart';
 
 class SignUpPage extends StatelessWidget {
-  const SignUpPage({super.key});
+  final SignUpPresenter presenter;
+
+  const SignUpPage(this.presenter, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,26 +37,29 @@ class SignUpPage extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(32),
-                    child: Form(
-                      child: Column(
-                        children: [
-                          const NameInput(),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 8),
-                            child: EmailInput(),
-                          ),
-                          const PasswordInput(),
-                          const Padding(
-                            padding: EdgeInsets.only(top: 8, bottom: 32),
-                            child: PasswordConfirmationInput(),
-                          ),
-                          const SignUpButton(),
-                          TextButton.icon(
-                            onPressed: () {},
-                            icon: const Icon(Icons.exit_to_app),
-                            label: Text(R.strings.login),
-                          ),
-                        ],
+                    child: Provider(
+                      create: (_) => presenter,
+                      child: Form(
+                        child: Column(
+                          children: [
+                            const NameInput(),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 8),
+                              child: EmailInput(),
+                            ),
+                            const PasswordInput(),
+                            const Padding(
+                              padding: EdgeInsets.only(top: 8, bottom: 32),
+                              child: PasswordConfirmationInput(),
+                            ),
+                            const SignUpButton(),
+                            TextButton.icon(
+                              onPressed: () {},
+                              icon: const Icon(Icons.exit_to_app),
+                              label: Text(R.strings.login),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
