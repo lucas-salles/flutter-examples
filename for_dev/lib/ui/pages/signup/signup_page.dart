@@ -31,6 +31,12 @@ class SignUpPage extends StatelessWidget {
             }
           });
 
+          presenter.mainErrorStream?.listen((error) {
+            if (error != null) {
+              showErrorMessage(context, error.description);
+            }
+          });
+
           return GestureDetector(
             onTap: hideKeyboard,
             child: SingleChildScrollView(
