@@ -223,29 +223,25 @@ void main() {
     );
   });
 
-  testWidgets('Should present error if password is empty',
+  testWidgets('Should enabled button if form is valid',
       (WidgetTester tester) async {
     await loadPage(tester);
 
-    passwordErrorController.add(UIError.requiredField);
+    isFormValidController.add(true);
     await tester.pump();
 
-    expect(find.text('Campo obrigatório.'), findsOneWidget);
+    final button = tester.widget<ElevatedButton>(find.byType(ElevatedButton));
+    expect(button.onPressed, isNotNull);
   });
 
-  testWidgets('Should present no error if password is valid',
+  testWidgets('Should disable button if form is invalid',
       (WidgetTester tester) async {
     await loadPage(tester);
 
-    passwordErrorController.add(null);
+    isFormValidController.add(false);
     await tester.pump();
 
-    expect(
-      find.descendant(
-        of: find.bySemanticsLabel('Senha'),
-        matching: find.byType(Text),
-      ),
-      findsOneWidget,
-    );
+    final button = tester.widget<ElevatedButton>(find.byType(ElevatedButton));
+    expect(button.onPressed, null);
   });
 }
