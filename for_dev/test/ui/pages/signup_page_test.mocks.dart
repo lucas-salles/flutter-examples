@@ -3,6 +3,8 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'dart:async' as _i3;
+
 import 'package:for_dev/ui/pages/signup/signup_presenter.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -54,4 +56,13 @@ class MockSignUpPresenter extends _i1.Mock implements _i2.SignUpPresenter {
         ),
         returnValueForMissingStub: null,
       );
+  @override
+  _i3.Future<void> signUp() => (super.noSuchMethod(
+        Invocation.method(
+          #signUp,
+          [],
+        ),
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
 }
