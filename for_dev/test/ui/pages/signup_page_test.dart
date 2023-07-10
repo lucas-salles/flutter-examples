@@ -20,12 +20,14 @@ void main() {
   late StreamController<UIError?> emailErrorController;
   late StreamController<UIError?> passwordErrorController;
   late StreamController<UIError?> passwordConfirmationErrorController;
+  late StreamController<bool> isFormValidController;
 
   void initStreams() {
     nameErrorController = StreamController<UIError?>();
     emailErrorController = StreamController<UIError?>();
     passwordErrorController = StreamController<UIError?>();
     passwordConfirmationErrorController = StreamController<UIError?>();
+    isFormValidController = StreamController<bool>();
   }
 
   void mockStreams() {
@@ -37,6 +39,8 @@ void main() {
         .thenAnswer((_) => passwordErrorController.stream);
     when(presenter.passwordConfirmationErrorStream)
         .thenAnswer((_) => passwordConfirmationErrorController.stream);
+    when(presenter.isFormValidStream)
+        .thenAnswer((_) => isFormValidController.stream);
   }
 
   void closeStreams() {
@@ -44,6 +48,7 @@ void main() {
     emailErrorController.close();
     passwordErrorController.close();
     passwordConfirmationErrorController.close();
+    isFormValidController.close();
   }
 
   Future<void> loadPage(WidgetTester tester) async {
@@ -212,6 +217,32 @@ void main() {
     expect(
       find.descendant(
         of: find.bySemanticsLabel('Confirmar senha'),
+        matching: find.byType(Text),
+      ),
+      findsOneWidget,
+    );
+  });
+
+  testWidgets('Should present error if password is empty',
+      (WidgetTester tester) async {
+    await loadPage(tester);
+
+    passwordErrorController.add(UIError.requiredField);
+    await tester.pump();
+
+    expect(find.text('Campo obrigatório.'), findsOneWidget);
+  });
+
+  testWidgets('Should present no error if password is valid',
+      (WidgetTester tester) async {
+    await loadPage(tester);
+
+    passwordErrorController.add(null);
+    await tester.pump();
+
+    expect(
+      find.descendant(
+        of: find.bySemanticsLabel('Senha'),
         matching: find.byType(Text),
       ),
       findsOneWidget,
