@@ -11,10 +11,11 @@ import 'package:for_dev/domain/usecases/usecases.dart';
 import 'package:for_dev/presentation/presenters/presenters.dart';
 import 'package:for_dev/presentation/protocols/protocols.dart';
 
-// Annotation which generates the getx_signup_presenter_test.mocks.dart library and the MockValidation and MockAddAccount class.
+// Annotation which generates the getx_signup_presenter_test.mocks.dart library and the MockValidation, MockAddAccount and MockSaveCurrentAccount class.
 @GenerateNiceMocks([
   MockSpec<Validation>(),
   MockSpec<AddAccount>(),
+  MockSpec<SaveCurrentAccount>()
 ])
 import './getx_signup_presenter_test.mocks.dart';
 
@@ -22,6 +23,7 @@ void main() {
   late GetxSignUpPresenter sut;
   late MockValidation validation;
   late MockAddAccount addAccount;
+  late MockSaveCurrentAccount saveCurrentAccount;
   late String email;
   late String name;
   late String password;
@@ -44,7 +46,12 @@ void main() {
   setUp(() {
     validation = MockValidation();
     addAccount = MockAddAccount();
-    sut = GetxSignUpPresenter(validation: validation, addAccount: addAccount);
+    saveCurrentAccount = MockSaveCurrentAccount();
+    sut = GetxSignUpPresenter(
+      validation: validation,
+      addAccount: addAccount,
+      saveCurrentAccount: saveCurrentAccount,
+    );
     email = faker.internet.email();
     name = faker.person.name();
     password = faker.internet.password();
@@ -246,5 +253,16 @@ void main() {
       password: password,
       passwordConfirmation: passwordConfirmation,
     ))).called(1);
+  });
+
+  test('Should call SaveCurrentAccount with correct value', () async {
+    sut.validateName(name);
+    sut.validateEmail(email);
+    sut.validatePassword(password);
+    sut.validatePasswordConfirmation(passwordConfirmation);
+
+    await sut.signUp();
+
+    verify(saveCurrentAccount.save(AccountEntity(token))).called(1);
   });
 }
