@@ -19,7 +19,7 @@ void main() {
   late StreamController<UIError?> emailErrorController;
   late StreamController<UIError?> passwordErrorController;
   late StreamController<UIError?> mainErrorController;
-  late StreamController<String> navigateToController;
+  late StreamController<String?> navigateToController;
   late StreamController<bool> isFormValidController;
   late StreamController<bool> isLoadingController;
 
@@ -27,7 +27,7 @@ void main() {
     emailErrorController = StreamController<UIError?>();
     passwordErrorController = StreamController<UIError?>();
     mainErrorController = StreamController<UIError?>();
-    navigateToController = StreamController<String>();
+    navigateToController = StreamController<String?>();
     isFormValidController = StreamController<bool>();
     isLoadingController = StreamController<bool>();
   }
@@ -82,7 +82,7 @@ void main() {
     await loadPage(tester);
 
     final emailTextChildren = find.descendant(
-        of: find.bySemanticsLabel('Email'), matching: find.byType(Text));
+        of: find.bySemanticsLabel('E-mail'), matching: find.byType(Text));
     expect(
       emailTextChildren,
       findsOneWidget,
@@ -109,7 +109,7 @@ void main() {
     await loadPage(tester);
 
     final email = faker.internet.email();
-    await tester.enterText(find.bySemanticsLabel('Email'), email);
+    await tester.enterText(find.bySemanticsLabel('E-mail'), email);
     verify(presenter.validateEmail(email));
 
     final password = faker.internet.password();
@@ -146,7 +146,7 @@ void main() {
 
     expect(
       find.descendant(
-        of: find.bySemanticsLabel('Email'),
+        of: find.bySemanticsLabel('E-mail'),
         matching: find.byType(Text),
       ),
       findsOneWidget,
@@ -271,7 +271,10 @@ void main() {
 
     navigateToController.add('');
     await tester.pump();
+    expect(Get.currentRoute, '/login');
 
+    navigateToController.add(null);
+    await tester.pump();
     expect(Get.currentRoute, '/login');
   });
 }

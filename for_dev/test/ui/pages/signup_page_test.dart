@@ -23,6 +23,7 @@ void main() {
   late StreamController<UIError?> mainErrorController;
   late StreamController<bool> isFormValidController;
   late StreamController<bool> isLoadingController;
+  late StreamController<String?> navigateToController;
 
   void initStreams() {
     nameErrorController = StreamController<UIError?>();
@@ -32,6 +33,7 @@ void main() {
     mainErrorController = StreamController<UIError?>();
     isFormValidController = StreamController<bool>();
     isLoadingController = StreamController<bool>();
+    navigateToController = StreamController<String?>();
   }
 
   void mockStreams() {
@@ -49,6 +51,8 @@ void main() {
         .thenAnswer((_) => isFormValidController.stream);
     when(presenter.isLoadingStream)
         .thenAnswer((_) => isLoadingController.stream);
+    when(presenter.navigateToStream)
+        .thenAnswer((_) => navigateToController.stream);
   }
 
   void closeStreams() {
@@ -59,6 +63,7 @@ void main() {
     mainErrorController.close();
     isFormValidController.close();
     isLoadingController.close();
+    navigateToController.close();
   }
 
   Future<void> loadPage(WidgetTester tester) async {
@@ -69,6 +74,10 @@ void main() {
       initialRoute: '/signup',
       getPages: [
         GetPage(name: '/signup', page: () => SignUpPage(presenter)),
+        GetPage(
+          name: '/any_route',
+          page: () => const Scaffold(body: Text('fake page')),
+        ),
       ],
     );
     await tester.pumpWidget(signUpPage);
@@ -92,7 +101,7 @@ void main() {
     );
 
     final emailTextChildren = find.descendant(
-        of: find.bySemanticsLabel('Email'), matching: find.byType(Text));
+        of: find.bySemanticsLabel('E-mail'), matching: find.byType(Text));
     expect(
       emailTextChildren,
       findsOneWidget,
@@ -133,7 +142,7 @@ void main() {
     verify(presenter.validateName(name));
 
     final email = faker.internet.email();
-    await tester.enterText(find.bySemanticsLabel('Email'), email);
+    await tester.enterText(find.bySemanticsLabel('E-mail'), email);
     verify(presenter.validateEmail(email));
 
     final password = faker.internet.password();
@@ -159,7 +168,7 @@ void main() {
     await tester.pump();
     expect(
       find.descendant(
-        of: find.bySemanticsLabel('Email'),
+        of: find.bySemanticsLabel('E-mail'),
         matching: find.byType(Text),
       ),
       findsOneWidget,
@@ -307,5 +316,27 @@ void main() {
 
     expect(find.text('Algo errado aconteceu. Tente novamente em breve.'),
         findsOneWidget);
+  });
+
+  testWidgets('Should change page', (WidgetTester tester) async {
+    await loadPage(tester);
+
+    navigateToController.add('/any_route');
+    await tester.pumpAndSettle();
+
+    expect(Get.currentRoute, '/any_route');
+    expect(find.text('fake page'), findsOneWidget);
+  });
+
+  testWidgets('Should not change page', (WidgetTester tester) async {
+    await loadPage(tester);
+
+    navigateToController.add('');
+    await tester.pump();
+    expect(Get.currentRoute, '/signup');
+
+    navigateToController.add(null);
+    await tester.pump();
+    expect(Get.currentRoute, '/signup');
   });
 }
