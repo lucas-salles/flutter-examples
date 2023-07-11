@@ -93,6 +93,8 @@ class StreamLoginPresenter implements LoginPresenter {
 
   @override
   Future<void> auth() async {
+    _state.mainError = null;
+    _update();
     _state.isLoading = true;
     _update();
     try {
