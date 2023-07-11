@@ -8,17 +8,19 @@ void main() {
   late CompareFieldsValidation sut;
 
   setUp(() {
-    sut = CompareFieldsValidation(
-        field: 'any_field', valueToCompare: 'any_value');
+    sut = const CompareFieldsValidation(
+        field: 'any_field', fieldToCompare: 'other_field');
   });
 
   test('Should return error if values are not equal', () {
-    final error = sut.validate('wrong_value');
+    final formData = {'any_field': 'any_value', 'other_field': 'other_value'};
+    final error = sut.validate(formData);
     expect(error, ValidationError.invalidField);
   });
 
   test('Should return null if value are equal', () {
-    final error = sut.validate('any_value');
+    final formData = {'any_field': 'any_value', 'other_field': 'any_value'};
+    final error = sut.validate(formData);
     expect(error, null);
   });
 }
