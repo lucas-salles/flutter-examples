@@ -25,11 +25,17 @@ class RemoteLoadSurveys {
 }
 
 void main() {
-  test('Should call HttpClient with correct values', () async {
-    final url = faker.internet.httpUrl();
-    final httpClient = MockHttpClient();
-    final sut = RemoteLoadSurveys(url: url, httpClient: httpClient);
+  late String url;
+  late MockHttpClient httpClient;
+  late RemoteLoadSurveys sut;
 
+  setUp(() {
+    url = faker.internet.httpUrl();
+    httpClient = MockHttpClient();
+    sut = RemoteLoadSurveys(url: url, httpClient: httpClient);
+  });
+
+  test('Should call HttpClient with correct values', () async {
     await sut.load();
 
     verify(httpClient.request(url: url, method: 'get'));
