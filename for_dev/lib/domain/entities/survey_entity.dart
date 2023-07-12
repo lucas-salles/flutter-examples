@@ -1,8 +1,13 @@
-class SurveyEntity {
+import 'package:equatable/equatable.dart';
+
+class SurveyEntity extends Equatable {
   final String id;
   final String question;
-  final String dateTime;
-  final String didAnswer;
+  final DateTime dateTime;
+  final bool didAnswer;
+
+  @override
+  List get props => ['id', 'question', 'dateTime', 'didAnswer'];
 
   const SurveyEntity({
     required this.id,

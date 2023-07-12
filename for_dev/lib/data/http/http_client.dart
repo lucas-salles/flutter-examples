@@ -1,3 +1,4 @@
-abstract class HttpClient {
-  Future<Map> request({required String url, required String method, Map? body});
+abstract class HttpClient<ResponseType> {
+  Future<ResponseType> request(
+      {required String url, required String method, Map? body});
 }
