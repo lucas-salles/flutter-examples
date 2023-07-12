@@ -205,5 +205,21 @@ void main() {
 
       expect(response, {});
     });
+
+    test('Should return empty map if get returns 204', () async {
+      mockResponse(204, body: '');
+
+      final response = await sut.request(url: url, method: 'get');
+
+      expect(response, {});
+    });
+
+    test('Should return empty map if get returns 204 with data', () async {
+      mockResponse(204);
+
+      final response = await sut.request(url: url, method: 'get');
+
+      expect(response, {});
+    });
   });
 }
