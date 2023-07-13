@@ -2,7 +2,7 @@
 
 > ## Regras
 
-1. Chamar LoadSurveys no método loadData
+1. ✅ Chamar LoadSurveys no método loadData
 2. Notificar o isLoadingStream como true antes de chamar o LoadSurveys
 3. Notificar o isLoadingStream como false no fim do LoadSurveys
 4. Notificar o surveysStream com erro caso o LoadSurveys retorne erro
