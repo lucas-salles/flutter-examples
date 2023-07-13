@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../survey_view_model.dart';
+
 class SurveyItem extends StatelessWidget {
-  const SurveyItem({super.key});
+  final SurveyViewModel viewModel;
+
+  const SurveyItem(this.viewModel, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,22 +25,24 @@ class SurveyItem extends StatelessWidget {
           ],
           borderRadius: const BorderRadius.all(Radius.circular(10)),
         ),
-        child: const Column(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "20 ago 2020",
+            const Text(
+              '20 ago 2020',
               style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             Text(
-              "Qual é o seu framework web favorito?",
-              style: TextStyle(color: Colors.white, fontSize: 24),
+              viewModel.question,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+              ),
             ),
           ],
         ),
