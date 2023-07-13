@@ -4,11 +4,17 @@ import 'package:flutter/material.dart';
 import 'components/components.dart';
 import '../../helpers/helpers.dart';
 
+import 'surveys_presenter.dart';
+
 class SurveysPage extends StatelessWidget {
-  const SurveysPage({super.key});
+  final SurveysPresenter? presenter;
+
+  const SurveysPage(this.presenter, {super.key});
 
   @override
   Widget build(BuildContext context) {
+    presenter?.loadData();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(R.strings.surveys),
