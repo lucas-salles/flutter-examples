@@ -20,7 +20,7 @@ class SurveysPage extends StatelessWidget {
         title: Text(R.strings.surveys),
       ),
       body: Builder(builder: (context) {
-        presenter?.isLoadingStream?.listen((isLoading) {
+        presenter?.isLoadingStream.listen((isLoading) {
           if (isLoading) {
             showLoading(context);
           } else {
