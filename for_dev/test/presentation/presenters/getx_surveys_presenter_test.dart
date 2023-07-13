@@ -19,10 +19,15 @@ class GetxSurveysPresenter {
 }
 
 void main() {
-  test('Should call LoadSurveys on loadData', () async {
-    final loadSurveys = MockLoadSurveys();
-    final sut = GetxSurveysPresenter(loadSurveys: loadSurveys);
+  late MockLoadSurveys loadSurveys;
+  late GetxSurveysPresenter sut;
 
+  setUp(() {
+    loadSurveys = MockLoadSurveys();
+    sut = GetxSurveysPresenter(loadSurveys: loadSurveys);
+  });
+
+  test('Should call LoadSurveys on loadData', () async {
     await sut.loadData();
 
     verify(loadSurveys.load()).called(1);
