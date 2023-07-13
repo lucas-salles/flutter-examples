@@ -10,14 +10,20 @@ import 'package:for_dev/ui/pages/pages.dart';
 import './surveys_page_test.mocks.dart';
 
 void main() {
-  testWidgets('Should call LoadSurveys on page load',
-      (WidgetTester tester) async {
-    final presenter = MockSurveysPresenter();
+  late MockSurveysPresenter presenter;
+
+  Future<void> loadPage(WidgetTester tester) async {
+    presenter = MockSurveysPresenter();
     final surveysPage = GetMaterialApp(
       initialRoute: '/surveys',
       getPages: [GetPage(name: '/surveys', page: () => SurveysPage(presenter))],
     );
     await tester.pumpWidget(surveysPage);
+  }
+
+  testWidgets('Should call LoadSurveys on page load',
+      (WidgetTester tester) async {
+    await loadPage(tester);
 
     verify(presenter.loadData()).called(1);
   });
