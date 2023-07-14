@@ -8,20 +8,20 @@ import 'surveys_presenter.dart';
 import 'survey_view_model.dart';
 
 class SurveysPage extends StatelessWidget {
-  final SurveysPresenter? presenter;
+  final SurveysPresenter presenter;
 
   const SurveysPage(this.presenter, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    presenter?.loadData();
+    presenter.loadData();
 
     return Scaffold(
       appBar: AppBar(
         title: Text(R.strings.surveys),
       ),
       body: Builder(builder: (context) {
-        presenter?.isLoadingStream.listen((isLoading) {
+        presenter.isLoadingStream.listen((isLoading) {
           if (isLoading) {
             showLoading(context);
           } else {
@@ -30,14 +30,14 @@ class SurveysPage extends StatelessWidget {
         });
 
         return StreamBuilder<List<SurveyViewModel>>(
-            stream: presenter?.surveysStream,
+            stream: presenter.surveysStream,
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return Column(
                   children: [
                     Text(snapshot.error as String),
                     ElevatedButton(
-                      onPressed: presenter?.loadData,
+                      onPressed: presenter.loadData,
                       child: Text(R.strings.reload),
                     ),
                   ],
