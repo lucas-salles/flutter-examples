@@ -19,11 +19,16 @@ class AuthorizeHttpClientDecorator {
 }
 
 void main() {
-  test('Should call FetchSecureCacheStorage with correct key', () async {
-    final fetchSecureCacheStorage = MockFetchSecureCacheStorage();
-    final sut = AuthorizeHttpClientDecorator(
-        fetchSecureCacheStorage: fetchSecureCacheStorage);
+  late MockFetchSecureCacheStorage fetchSecureCacheStorage;
+  late AuthorizeHttpClientDecorator sut;
 
+  setUp(() {
+    fetchSecureCacheStorage = MockFetchSecureCacheStorage();
+    sut = AuthorizeHttpClientDecorator(
+        fetchSecureCacheStorage: fetchSecureCacheStorage);
+  });
+
+  test('Should call FetchSecureCacheStorage with correct key', () async {
     await sut.request();
 
     verify(fetchSecureCacheStorage.fetchSecure('token')).called(1);
