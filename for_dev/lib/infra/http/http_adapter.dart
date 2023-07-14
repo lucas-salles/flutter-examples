@@ -4,7 +4,7 @@ import 'package:http/http.dart';
 
 import '../../data/http/http.dart';
 
-class HttpAdapter implements HttpClient<Map> {
+class HttpAdapter implements HttpClient {
   final Client client;
 
   const HttpAdapter(this.client);

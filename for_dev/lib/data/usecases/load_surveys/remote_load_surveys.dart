@@ -7,7 +7,7 @@ import '../../models/models.dart';
 
 class RemoteLoadSurveys implements LoadSurveys {
   final String url;
-  final HttpClient<List<Map>> httpClient;
+  final HttpClient httpClient;
 
   const RemoteLoadSurveys({
     required this.url,
@@ -19,7 +19,8 @@ class RemoteLoadSurveys implements LoadSurveys {
     try {
       final response = await httpClient.request(url: url, method: 'get');
       return response
-          .map((json) => RemoteSurveyModel.fromJson(json).toEntity())
+          .map<SurveyEntity>(
+              (json) => RemoteSurveyModel.fromJson(json).toEntity())
           .toList();
     } on HttpError catch (error) {
       throw error == HttpError.forbidden

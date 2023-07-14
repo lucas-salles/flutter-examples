@@ -10,7 +10,7 @@ import 'package:for_dev/data/http/http.dart';
 import 'package:for_dev/data/usecases/usecases.dart';
 
 // Annotation which generates the remote_add_account_test.mocks.dart library and the MockHttpClient class.
-@GenerateNiceMocks([MockSpec<HttpClient<Map>>()])
+@GenerateNiceMocks([MockSpec<HttpClient>()])
 import './remote_add_account_test.mocks.dart';
 
 void main() {

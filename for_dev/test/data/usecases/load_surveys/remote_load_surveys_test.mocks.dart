@@ -22,10 +22,9 @@ import 'package:mockito/mockito.dart' as _i1;
 /// A class which mocks [HttpClient].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockHttpClient extends _i1.Mock
-    implements _i2.HttpClient<List<Map<dynamic, dynamic>>> {
+class MockHttpClient extends _i1.Mock implements _i2.HttpClient {
   @override
-  _i3.Future<List<Map<dynamic, dynamic>>> request({
+  _i3.Future<dynamic> request({
     required String? url,
     required String? method,
     Map<dynamic, dynamic>? body,
@@ -40,10 +39,7 @@ class MockHttpClient extends _i1.Mock
             #body: body,
           },
         ),
-        returnValue: _i3.Future<List<Map<dynamic, dynamic>>>.value(
-            <Map<dynamic, dynamic>>[]),
-        returnValueForMissingStub:
-            _i3.Future<List<Map<dynamic, dynamic>>>.value(
-                <Map<dynamic, dynamic>>[]),
-      ) as _i3.Future<List<Map<dynamic, dynamic>>>);
+        returnValue: _i3.Future<dynamic>.value(),
+        returnValueForMissingStub: _i3.Future<dynamic>.value(),
+      ) as _i3.Future<dynamic>);
 }
