@@ -28,6 +28,7 @@ class MockHttpClient extends _i1.Mock implements _i2.HttpClient {
     required String? url,
     required String? method,
     Map<dynamic, dynamic>? body,
+    Map<dynamic, dynamic>? headers,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -37,6 +38,7 @@ class MockHttpClient extends _i1.Mock implements _i2.HttpClient {
             #url: url,
             #method: method,
             #body: body,
+            #headers: headers,
           },
         ),
         returnValue: _i3.Future<dynamic>.value(),
