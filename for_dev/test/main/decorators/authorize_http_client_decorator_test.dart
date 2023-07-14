@@ -7,46 +7,14 @@ import 'package:mockito/mockito.dart';
 import 'package:for_dev/data/cache/cache.dart';
 import 'package:for_dev/data/http/http.dart';
 
+import 'package:for_dev/main/decorators/decorators.dart';
+
 // Annotation which generates the authorize_http_client_decorator_test.mocks.dart library and the MockFetchSecureCacheStorage and MockHttpClient class.
 @GenerateNiceMocks([
   MockSpec<FetchSecureCacheStorage>(),
   MockSpec<HttpClient>(),
 ])
 import './authorize_http_client_decorator_test.mocks.dart';
-
-class AuthorizeHttpClientDecorator implements HttpClient {
-  final FetchSecureCacheStorage fetchSecureCacheStorage;
-  final HttpClient decoratee;
-
-  const AuthorizeHttpClientDecorator({
-    required this.fetchSecureCacheStorage,
-    required this.decoratee,
-  });
-
-  @override
-  Future<dynamic> request({
-    required String url,
-    required String method,
-    Map? body,
-    Map? headers,
-  }) async {
-    try {
-      final token = await fetchSecureCacheStorage.fetchSecure('token');
-      final authorizedHeaders = headers ?? {}
-        ..addAll({'x-access-token': token});
-      return await decoratee.request(
-        url: url,
-        method: method,
-        body: body,
-        headers: authorizedHeaders,
-      );
-    } on HttpError {
-      rethrow;
-    } catch (error) {
-      throw HttpError.forbidden;
-    }
-  }
-}
 
 void main() {
   late MockFetchSecureCacheStorage fetchSecureCacheStorage;
