@@ -6,6 +6,7 @@
 import 'dart:async' as _i3;
 
 import 'package:for_dev/data/cache/fetch_secure_cache_storage.dart' as _i2;
+import 'package:for_dev/data/http/http_client.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -33,4 +34,31 @@ class MockFetchSecureCacheStorage extends _i1.Mock
         returnValue: _i3.Future<String?>.value(),
         returnValueForMissingStub: _i3.Future<String?>.value(),
       ) as _i3.Future<String?>);
+}
+
+/// A class which mocks [HttpClient].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockHttpClient extends _i1.Mock implements _i4.HttpClient {
+  @override
+  _i3.Future<dynamic> request({
+    required String? url,
+    required String? method,
+    Map<dynamic, dynamic>? body,
+    Map<dynamic, dynamic>? headers,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #request,
+          [],
+          {
+            #url: url,
+            #method: method,
+            #body: body,
+            #headers: headers,
+          },
+        ),
+        returnValue: _i3.Future<dynamic>.value(),
+        returnValueForMissingStub: _i3.Future<dynamic>.value(),
+      ) as _i3.Future<dynamic>);
 }
