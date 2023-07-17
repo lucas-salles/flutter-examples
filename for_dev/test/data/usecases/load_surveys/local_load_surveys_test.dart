@@ -3,36 +3,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:for_dev/data/cache/cache.dart';
-import 'package:for_dev/data/models/models.dart';
-
 import 'package:for_dev/domain/entities/entities.dart';
 import 'package:for_dev/domain/helpers/helpers.dart';
+import 'package:for_dev/data/cache/cache.dart';
+import 'package:for_dev/data/usecases/usecases.dart';
 
 // Annotation which generates the local_load_surveys_test.mocks.dart library and the MockFetchCacheStorage class.
 @GenerateNiceMocks([MockSpec<FetchCacheStorage>()])
 import './local_load_surveys_test.mocks.dart';
-
-class LocalLoadSurveys {
-  final FetchCacheStorage fetchCacheStorage;
-
-  LocalLoadSurveys({required this.fetchCacheStorage});
-
-  Future<List<SurveyEntity>> load() async {
-    try {
-      final data = await fetchCacheStorage.fetch('surveys');
-      if (data?.isEmpty != false) {
-        throw Exception();
-      }
-      return data
-          .map<SurveyEntity>(
-              (json) => LocalSurveyModel.fromJson(json).toEntity())
-          .toList();
-    } catch (error) {
-      throw DomainError.unexpected;
-    }
-  }
-}
 
 void main() {
   late MockFetchCacheStorage fetchCacheStorage;
