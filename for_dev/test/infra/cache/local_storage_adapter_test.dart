@@ -15,6 +15,7 @@ class LocalStorageAdapter {
   LocalStorageAdapter({required this.localStorage});
 
   Future<void> save({required String key, required dynamic value}) async {
+    await localStorage.deleteItem(key);
     await localStorage.setItem(key, value);
   }
 }
@@ -35,6 +36,7 @@ void main() {
   test('Should call localStorage with correct values', () async {
     await sut.save(key: key, value: value);
 
+    verify(localStorage.deleteItem(key)).called(1);
     verify(localStorage.setItem(key, value)).called(1);
   });
 }
