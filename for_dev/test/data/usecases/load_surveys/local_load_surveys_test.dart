@@ -21,10 +21,15 @@ class LocalLoadSurveys {
 }
 
 void main() {
-  test('Should call FetchCacheStorage with correct key', () async {
-    final fetchCacheStorage = MockFetchCacheStorage();
-    final sut = LocalLoadSurveys(fetchCacheStorage: fetchCacheStorage);
+  late MockFetchCacheStorage fetchCacheStorage;
+  late LocalLoadSurveys sut;
 
+  setUp(() {
+    fetchCacheStorage = MockFetchCacheStorage();
+    sut = LocalLoadSurveys(fetchCacheStorage: fetchCacheStorage);
+  });
+
+  test('Should call FetchCacheStorage with correct key', () async {
     await sut.load();
 
     verify(fetchCacheStorage.fetch('surveys')).called(1);
