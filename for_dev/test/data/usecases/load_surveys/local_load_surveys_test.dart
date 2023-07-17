@@ -1,20 +1,17 @@
 import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:for_dev/domain/helpers/helpers.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+import 'package:for_dev/data/cache/cache.dart';
 import 'package:for_dev/data/models/models.dart';
 
 import 'package:for_dev/domain/entities/entities.dart';
+import 'package:for_dev/domain/helpers/helpers.dart';
 
 // Annotation which generates the local_load_surveys_test.mocks.dart library and the MockFetchCacheStorage class.
 @GenerateNiceMocks([MockSpec<FetchCacheStorage>()])
 import './local_load_surveys_test.mocks.dart';
-
-abstract class FetchCacheStorage {
-  Future<dynamic> fetch(String key);
-}
 
 class LocalLoadSurveys {
   final FetchCacheStorage fetchCacheStorage;
