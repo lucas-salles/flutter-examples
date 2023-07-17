@@ -40,4 +40,4 @@
 
 > ## Exceção - Erro ao gravar dados no Cache
 
-1. Sistema retorna uma mensagem de erro inesperado
+1. ✅ Sistema retorna uma mensagem de erro inesperado
