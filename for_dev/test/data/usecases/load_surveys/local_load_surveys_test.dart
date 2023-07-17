@@ -8,13 +8,13 @@ import 'package:for_dev/domain/helpers/helpers.dart';
 import 'package:for_dev/data/cache/cache.dart';
 import 'package:for_dev/data/usecases/usecases.dart';
 
-// Annotation which generates the local_load_surveys_test.mocks.dart library and the MockFetchCacheStorage class.
-@GenerateNiceMocks([MockSpec<FetchCacheStorage>()])
+// Annotation which generates the local_load_surveys_test.mocks.dart library and the MockCacheStorage class.
+@GenerateNiceMocks([MockSpec<CacheStorage>()])
 import './local_load_surveys_test.mocks.dart';
 
 void main() {
   group('load', () {
-    late MockFetchCacheStorage fetchCacheStorage;
+    late MockCacheStorage cacheStorage;
     late LocalLoadSurveys sut;
     late List<Map>? data;
 
@@ -33,7 +33,7 @@ void main() {
           },
         ];
 
-    PostExpectation mockFetchCall() => when(fetchCacheStorage.fetch(any));
+    PostExpectation mockFetchCall() => when(cacheStorage.fetch(any));
 
     void mockFetch(List<Map>? list) {
       data = list;
@@ -43,15 +43,15 @@ void main() {
     void mockFetchError() => mockFetchCall().thenThrow(Exception());
 
     setUp(() {
-      fetchCacheStorage = MockFetchCacheStorage();
-      sut = LocalLoadSurveys(fetchCacheStorage: fetchCacheStorage);
+      cacheStorage = MockCacheStorage();
+      sut = LocalLoadSurveys(cacheStorage: cacheStorage);
       mockFetch(mockValidData());
     });
 
     test('Should call FetchCacheStorage with correct key', () async {
       await sut.load();
 
-      verify(fetchCacheStorage.fetch('surveys')).called(1);
+      verify(cacheStorage.fetch('surveys')).called(1);
     });
 
     test('Should return a list of surveys on success', () async {
