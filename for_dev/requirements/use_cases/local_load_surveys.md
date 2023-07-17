@@ -28,7 +28,7 @@
 
 > ## Exceção - Dados inválidos no cache
 
-1. Sistema limpa os dados do cache
+1. ✅ Sistema limpa os dados do cache
 
 ---
 
