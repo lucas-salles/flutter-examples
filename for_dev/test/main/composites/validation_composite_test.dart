@@ -3,13 +3,12 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:for_dev/presentation/protocols/protocols.dart';
-
 import 'package:for_dev/validation/protocols/protocols.dart';
-import 'package:for_dev/validation/validators/validators.dart';
+import 'package:for_dev/main/composites/composites.dart';
 
 // Annotation which generates the validation_composite_test.mocks.dart library and the MockValidation and MockAuthentication class.
 @GenerateNiceMocks([MockSpec<FieldValidation>()])
-import './validation_composite_test.mocks.dart';
+import 'validation_composite_test.mocks.dart';
 
 void main() {
   late ValidationComposite sut;
