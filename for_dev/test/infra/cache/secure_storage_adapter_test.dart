@@ -6,19 +6,19 @@ import 'package:mockito/mockito.dart';
 
 import 'package:for_dev/infra/cache/cache.dart';
 
-// Annotation which generates the local_storage_adapter_test.mocks.dart library and the MockClient class.
+// Annotation which generates the secure_storage_adapter_test.mocks.dart library and the MockClient class.
 @GenerateNiceMocks([MockSpec<FlutterSecureStorage>()])
-import './local_storage_adapter_test.mocks.dart';
+import './secure_storage_adapter_test.mocks.dart';
 
 void main() {
   late MockFlutterSecureStorage secureStorage;
-  late LocalStorageAdapter sut;
+  late SecureStorageAdapter sut;
   late String key;
   late String value;
 
   setUp(() {
     secureStorage = MockFlutterSecureStorage();
-    sut = LocalStorageAdapter(secureStorage: secureStorage);
+    sut = SecureStorageAdapter(secureStorage: secureStorage);
     key = faker.lorem.word();
     value = faker.guid.guid();
   });
