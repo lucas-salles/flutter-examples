@@ -25,12 +25,12 @@ import 'local_load_surveys_test.dart' as _i2;
 /// See the documentation for Mockito's code generation for more information.
 class MockFetchCacheStorage extends _i1.Mock implements _i2.FetchCacheStorage {
   @override
-  _i3.Future<void> fetch(String? key) => (super.noSuchMethod(
+  _i3.Future<dynamic> fetch(String? key) => (super.noSuchMethod(
         Invocation.method(
           #fetch,
           [key],
         ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
+        returnValue: _i3.Future<dynamic>.value(),
+        returnValueForMissingStub: _i3.Future<dynamic>.value(),
+      ) as _i3.Future<dynamic>);
 }
