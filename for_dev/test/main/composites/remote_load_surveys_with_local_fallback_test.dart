@@ -19,10 +19,15 @@ class RemoteLoadSurveysWithLocalFallback {
 }
 
 void main() {
-  test('Should call remote load', () async {
-    final remote = MockRemoteLoadSurveys();
-    final sut = RemoteLoadSurveysWithLocalFallback(remote: remote);
+  late MockRemoteLoadSurveys remote;
+  late RemoteLoadSurveysWithLocalFallback sut;
 
+  setUp(() {
+    remote = MockRemoteLoadSurveys();
+    sut = RemoteLoadSurveysWithLocalFallback(remote: remote);
+  });
+
+  test('Should call remote load', () async {
     await sut.load();
 
     verify(remote.load()).called(1);
