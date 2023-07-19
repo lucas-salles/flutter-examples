@@ -6,7 +6,7 @@ import 'package:for_dev/presentation/protocols/protocols.dart';
 import 'package:for_dev/validation/protocols/protocols.dart';
 import 'package:for_dev/main/composites/composites.dart';
 
-// Annotation which generates the validation_composite_test.mocks.dart library and the MockValidation and MockAuthentication class.
+// Annotation which generates the validation_composite_test.mocks.dart library and the MockFieldValidation class.
 @GenerateNiceMocks([MockSpec<FieldValidation>()])
 import 'validation_composite_test.mocks.dart';
 
