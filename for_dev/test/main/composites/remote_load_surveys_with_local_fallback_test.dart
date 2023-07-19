@@ -3,8 +3,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:for_dev/data/usecases/usecases.dart';
 import 'package:for_dev/domain/entities/entities.dart';
+import 'package:for_dev/domain/usecases/usecases.dart';
+import 'package:for_dev/data/usecases/usecases.dart';
 
 // Annotation which generates the remote_load_surveys_with_local_fallback_test.mocks.dart library and the MockRemoteLoadSurveys and MockLocalLoadSurveys class.
 @GenerateNiceMocks([
@@ -13,7 +14,7 @@ import 'package:for_dev/domain/entities/entities.dart';
 ])
 import 'remote_load_surveys_with_local_fallback_test.mocks.dart';
 
-class RemoteLoadSurveysWithLocalFallback {
+class RemoteLoadSurveysWithLocalFallback implements LoadSurveys {
   final RemoteLoadSurveys remote;
   final LocalLoadSurveys local;
 
@@ -22,9 +23,11 @@ class RemoteLoadSurveysWithLocalFallback {
     required this.local,
   });
 
-  Future<void> load() async {
+  @override
+  Future<List<SurveyEntity>> load() async {
     final surveys = await remote.load();
     await local.save(surveys);
+    return surveys;
   }
 }
 
@@ -32,7 +35,7 @@ void main() {
   late MockRemoteLoadSurveys remote;
   late MockLocalLoadSurveys local;
   late RemoteLoadSurveysWithLocalFallback sut;
-  late List<SurveyEntity> surveys;
+  late List<SurveyEntity> remoteSurveys;
 
   List<SurveyEntity> mockSurveys() => [
         SurveyEntity(
@@ -44,8 +47,8 @@ void main() {
       ];
 
   void mockRemoteLoad() {
-    surveys = mockSurveys();
-    when(remote.load()).thenAnswer((_) async => surveys);
+    remoteSurveys = mockSurveys();
+    when(remote.load()).thenAnswer((_) async => remoteSurveys);
   }
 
   setUp(() {
@@ -64,6 +67,12 @@ void main() {
   test('Should call local save with remote data', () async {
     await sut.load();
 
-    verify(local.save(surveys)).called(1);
+    verify(local.save(remoteSurveys)).called(1);
+  });
+
+  test('Should return remote data', () async {
+    final surveys = await sut.load();
+
+    expect(surveys, remoteSurveys);
   });
 }
