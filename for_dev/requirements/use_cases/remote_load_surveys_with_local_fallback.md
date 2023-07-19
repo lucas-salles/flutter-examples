@@ -18,4 +18,4 @@
 
 > ## Exceção - Erro ao obter dados do Cache
 
-1. Sistema retorna uma exceção de erro inesperado
+1. ✅ Sistema retorna uma exceção de erro inesperado
