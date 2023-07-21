@@ -5,8 +5,9 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i3;
 
+import 'package:for_dev/data/cache/delete_secure_cache_storage.dart' as _i4;
 import 'package:for_dev/data/cache/fetch_secure_cache_storage.dart' as _i2;
-import 'package:for_dev/data/http/http_client.dart' as _i4;
+import 'package:for_dev/data/http/http_client.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -36,10 +37,26 @@ class MockFetchSecureCacheStorage extends _i1.Mock
       ) as _i3.Future<String?>);
 }
 
+/// A class which mocks [DeleteSecureCacheStorage].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockDeleteSecureCacheStorage extends _i1.Mock
+    implements _i4.DeleteSecureCacheStorage {
+  @override
+  _i3.Future<void> deleteSecure(String? key) => (super.noSuchMethod(
+        Invocation.method(
+          #deleteSecure,
+          [key],
+        ),
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
+}
+
 /// A class which mocks [HttpClient].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockHttpClient extends _i1.Mock implements _i4.HttpClient {
+class MockHttpClient extends _i1.Mock implements _i5.HttpClient {
   @override
   _i3.Future<dynamic> request({
     required String? url,

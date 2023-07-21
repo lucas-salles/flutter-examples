@@ -9,15 +9,17 @@ import 'package:for_dev/data/http/http.dart';
 
 import 'package:for_dev/main/decorators/decorators.dart';
 
-// Annotation which generates the authorize_http_client_decorator_test.mocks.dart library and the MockFetchSecureCacheStorage and MockHttpClient class.
+// Annotation which generates the authorize_http_client_decorator_test.mocks.dart library and the MockFetchSecureCacheStorage, MockDeleteSecureCacheStorage  and MockHttpClient class.
 @GenerateNiceMocks([
   MockSpec<FetchSecureCacheStorage>(),
+  MockSpec<DeleteSecureCacheStorage>(),
   MockSpec<HttpClient>(),
 ])
 import './authorize_http_client_decorator_test.mocks.dart';
 
 void main() {
   late MockFetchSecureCacheStorage fetchSecureCacheStorage;
+  late MockDeleteSecureCacheStorage deleteSecureCacheStorage;
   late MockHttpClient httpClient;
   late AuthorizeHttpClientDecorator sut;
   late String url;
@@ -56,9 +58,11 @@ void main() {
 
   setUp(() {
     fetchSecureCacheStorage = MockFetchSecureCacheStorage();
+    deleteSecureCacheStorage = MockDeleteSecureCacheStorage();
     httpClient = MockHttpClient();
     sut = AuthorizeHttpClientDecorator(
       fetchSecureCacheStorage: fetchSecureCacheStorage,
+      deleteSecureCacheStorage: deleteSecureCacheStorage,
       decoratee: httpClient,
     );
     url = faker.internet.httpUrl();
@@ -110,6 +114,7 @@ void main() {
     final future = sut.request(url: url, method: method, body: body);
 
     expect(future, throwsA(HttpError.forbidden));
+    verify(deleteSecureCacheStorage.deleteSecure('token')).called(1);
   });
 
   test('Should rethrow if decoratee throws', () async {
