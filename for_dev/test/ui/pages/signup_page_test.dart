@@ -23,7 +23,7 @@ void main() {
   late StreamController<UIError?> mainErrorController;
   late StreamController<bool> isFormValidController;
   late StreamController<bool> isLoadingController;
-  late StreamController<String?> navigateToController;
+  late StreamController<String> navigateToController;
 
   void initStreams() {
     nameErrorController = StreamController<UIError?>();
@@ -33,7 +33,7 @@ void main() {
     mainErrorController = StreamController<UIError?>();
     isFormValidController = StreamController<bool>();
     isLoadingController = StreamController<bool>();
-    navigateToController = StreamController<String?>();
+    navigateToController = StreamController<String>();
   }
 
   void mockStreams() {
@@ -278,10 +278,6 @@ void main() {
     await loadPage(tester);
 
     navigateToController.add('');
-    await tester.pump();
-    expect(Get.currentRoute, '/signup');
-
-    navigateToController.add(null);
     await tester.pump();
     expect(Get.currentRoute, '/signup');
   });

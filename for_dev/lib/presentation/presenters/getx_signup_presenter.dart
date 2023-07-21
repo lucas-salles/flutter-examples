@@ -18,7 +18,7 @@ class GetxSignUpPresenter extends GetxController implements SignUpPresenter {
   final _passwordError = Rxn<UIError>();
   final _passwordConfirmationError = Rxn<UIError>();
   final _mainError = Rxn<UIError>();
-  final _navigateTo = RxnString();
+  final _navigateTo = RxString('');
   final _isFormValid = false.obs;
   final _isLoading = false.obs;
 
@@ -34,22 +34,22 @@ class GetxSignUpPresenter extends GetxController implements SignUpPresenter {
   });
 
   @override
-  Stream<UIError?>? get emailErrorStream => _emailError.stream;
+  Stream<UIError?> get emailErrorStream => _emailError.stream;
   @override
-  Stream<UIError?>? get nameErrorStream => _nameError.stream;
+  Stream<UIError?> get nameErrorStream => _nameError.stream;
   @override
-  Stream<UIError?>? get passwordErrorStream => _passwordError.stream;
+  Stream<UIError?> get passwordErrorStream => _passwordError.stream;
   @override
-  Stream<UIError?>? get passwordConfirmationErrorStream =>
+  Stream<UIError?> get passwordConfirmationErrorStream =>
       _passwordConfirmationError.stream;
   @override
-  Stream<UIError?>? get mainErrorStream => _mainError.stream;
+  Stream<UIError?> get mainErrorStream => _mainError.stream;
   @override
-  Stream<String?>? get navigateToStream => _navigateTo.stream;
+  Stream<String> get navigateToStream => _navigateTo.stream;
   @override
-  Stream<bool>? get isFormValidStream => _isFormValid.stream;
+  Stream<bool> get isFormValidStream => _isFormValid.stream;
   @override
-  Stream<bool>? get isLoadingStream => _isLoading.stream;
+  Stream<bool> get isLoadingStream => _isLoading.stream;
 
   @override
   void validateEmail(String email) {

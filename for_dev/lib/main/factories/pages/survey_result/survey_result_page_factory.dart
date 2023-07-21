@@ -2,6 +2,4 @@ import 'package:flutter/material.dart';
 
 import '../../../../ui/pages/pages.dart';
 
-Widget makeSurveyResultPage() {
-  return const SurveyResultPage(null);
-}
+Widget makeSurveyResultPage() => const SurveyResultPage(null);

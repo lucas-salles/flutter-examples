@@ -19,7 +19,7 @@ void main() {
   late StreamController<UIError?> emailErrorController;
   late StreamController<UIError?> passwordErrorController;
   late StreamController<UIError?> mainErrorController;
-  late StreamController<String?> navigateToController;
+  late StreamController<String> navigateToController;
   late StreamController<bool> isFormValidController;
   late StreamController<bool> isLoadingController;
 
@@ -27,7 +27,7 @@ void main() {
     emailErrorController = StreamController<UIError?>();
     passwordErrorController = StreamController<UIError?>();
     mainErrorController = StreamController<UIError?>();
-    navigateToController = StreamController<String?>();
+    navigateToController = StreamController<String>();
     isFormValidController = StreamController<bool>();
     isLoadingController = StreamController<bool>();
   }
@@ -235,10 +235,6 @@ void main() {
     await loadPage(tester);
 
     navigateToController.add('');
-    await tester.pump();
-    expect(Get.currentRoute, '/login');
-
-    navigateToController.add(null);
     await tester.pump();
     expect(Get.currentRoute, '/login');
   });

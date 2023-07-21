@@ -5,6 +5,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i3;
 
+import 'package:for_dev/ui/helpers/errors/ui_error.dart' as _i4;
 import 'package:for_dev/ui/pages/login/login_presenter.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -23,6 +24,42 @@ import 'package:mockito/mockito.dart' as _i1;
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockLoginPresenter extends _i1.Mock implements _i2.LoginPresenter {
+  @override
+  _i3.Stream<_i4.UIError?> get emailErrorStream => (super.noSuchMethod(
+        Invocation.getter(#emailErrorStream),
+        returnValue: _i3.Stream<_i4.UIError?>.empty(),
+        returnValueForMissingStub: _i3.Stream<_i4.UIError?>.empty(),
+      ) as _i3.Stream<_i4.UIError?>);
+  @override
+  _i3.Stream<_i4.UIError?> get passwordErrorStream => (super.noSuchMethod(
+        Invocation.getter(#passwordErrorStream),
+        returnValue: _i3.Stream<_i4.UIError?>.empty(),
+        returnValueForMissingStub: _i3.Stream<_i4.UIError?>.empty(),
+      ) as _i3.Stream<_i4.UIError?>);
+  @override
+  _i3.Stream<_i4.UIError?> get mainErrorStream => (super.noSuchMethod(
+        Invocation.getter(#mainErrorStream),
+        returnValue: _i3.Stream<_i4.UIError?>.empty(),
+        returnValueForMissingStub: _i3.Stream<_i4.UIError?>.empty(),
+      ) as _i3.Stream<_i4.UIError?>);
+  @override
+  _i3.Stream<String> get navigateToStream => (super.noSuchMethod(
+        Invocation.getter(#navigateToStream),
+        returnValue: _i3.Stream<String>.empty(),
+        returnValueForMissingStub: _i3.Stream<String>.empty(),
+      ) as _i3.Stream<String>);
+  @override
+  _i3.Stream<bool> get isValidFormStream => (super.noSuchMethod(
+        Invocation.getter(#isValidFormStream),
+        returnValue: _i3.Stream<bool>.empty(),
+        returnValueForMissingStub: _i3.Stream<bool>.empty(),
+      ) as _i3.Stream<bool>);
+  @override
+  _i3.Stream<bool> get isLoadingStream => (super.noSuchMethod(
+        Invocation.getter(#isLoadingStream),
+        returnValue: _i3.Stream<bool>.empty(),
+        returnValueForMissingStub: _i3.Stream<bool>.empty(),
+      ) as _i3.Stream<bool>);
   @override
   void validateEmail(String? email) => super.noSuchMethod(
         Invocation.method(
