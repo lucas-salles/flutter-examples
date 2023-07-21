@@ -22,7 +22,7 @@ class App extends StatelessWidget {
       title: '4Dev',
       theme: makeAppTheme(),
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      initialRoute: '/survey_result/3',
       getPages: [
         GetPage(
           name: '/',
