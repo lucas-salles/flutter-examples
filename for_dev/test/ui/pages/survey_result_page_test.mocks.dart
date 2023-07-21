@@ -34,13 +34,13 @@ class MockSurveyResultPresenter extends _i1.Mock
         returnValueForMissingStub: _i3.Stream<bool>.empty(),
       ) as _i3.Stream<bool>);
   @override
-  _i3.Stream<_i4.SurveyResultViewModel> get surveyResultStream =>
+  _i3.Stream<_i4.SurveyResultViewModel?> get surveyResultStream =>
       (super.noSuchMethod(
         Invocation.getter(#surveyResultStream),
-        returnValue: _i3.Stream<_i4.SurveyResultViewModel>.empty(),
+        returnValue: _i3.Stream<_i4.SurveyResultViewModel?>.empty(),
         returnValueForMissingStub:
-            _i3.Stream<_i4.SurveyResultViewModel>.empty(),
-      ) as _i3.Stream<_i4.SurveyResultViewModel>);
+            _i3.Stream<_i4.SurveyResultViewModel?>.empty(),
+      ) as _i3.Stream<_i4.SurveyResultViewModel?>);
   @override
   _i3.Future<void> loadData() => (super.noSuchMethod(
         Invocation.method(
