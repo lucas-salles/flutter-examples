@@ -7,6 +7,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 
+import 'package:for_dev/ui/helpers/helpers.dart';
 import 'package:for_dev/ui/pages/pages.dart';
 
 // Annotation which generates the survey_result_page_test.mocks.dart library and the MockSurveyResultPresenter class.
@@ -16,18 +17,23 @@ import './survey_result_page_test.mocks.dart';
 void main() {
   late MockSurveyResultPresenter presenter;
   late StreamController<bool> isLoadingController;
+  late StreamController<dynamic> surveyResultController;
 
   void initStreams() {
     isLoadingController = StreamController<bool>();
+    surveyResultController = StreamController<dynamic>();
   }
 
   void mockStreams() {
     when(presenter.isLoadingStream)
         .thenAnswer((_) => isLoadingController.stream);
+    when(presenter.surveyResultStream)
+        .thenAnswer((_) => surveyResultController.stream);
   }
 
   void closeStreams() {
     isLoadingController.close();
+    surveyResultController.close();
   }
 
   Future<void> loadPage(WidgetTester tester) async {
@@ -69,5 +75,17 @@ void main() {
     isLoadingController.add(false);
     await tester.pump();
     expect(find.byType(CircularProgressIndicator), findsNothing);
+  });
+
+  testWidgets('Should present error if surveysStream fails',
+      (WidgetTester tester) async {
+    await loadPage(tester);
+
+    surveyResultController.addError(UIError.unexpected.description);
+    await tester.pump();
+
+    expect(find.text('Algo errado aconteceu. Tente novamente em breve.'),
+        findsOneWidget);
+    expect(find.text('Recarregar'), findsOneWidget);
   });
 }
