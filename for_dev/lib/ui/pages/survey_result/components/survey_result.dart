@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../survey_result_viewmodel.dart';
+
 class SurveyResult extends StatelessWidget {
-  const SurveyResult({
-    super.key,
-  });
+  final SurveyResultViewModel viewModel;
+
+  const SurveyResult(this.viewModel, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class SurveyResult extends StatelessWidget {
             decoration: BoxDecoration(
               color: Theme.of(context).disabledColor.withAlpha(90),
             ),
-            child: const Text('Qual é o seu framework web favorito?'),
+            child: Text(viewModel.question),
           );
         }
         return Column(
@@ -34,34 +36,32 @@ class SurveyResult extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Image.network(
-                      'https://pbs.twimg.com/profile_images/446356636710363136/OYIaJ1KK_400x400.png',
-                      width: 40,
-                    ),
-                    const Expanded(
+                    viewModel.answers[index - 1].image != null
+                        ? Image.network(
+                            viewModel.answers[index - 1].image!,
+                            width: 40,
+                          )
+                        : const SizedBox(height: 0),
+                    Expanded(
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: Text(
-                          'React',
-                          style: TextStyle(fontSize: 16),
+                          viewModel.answers[index - 1].answer,
+                          style: const TextStyle(fontSize: 16),
                         ),
                       ),
                     ),
                     Text(
-                      '100%',
+                      viewModel.answers[index - 1].percent,
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).primaryColorDark,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Icon(
-                        Icons.check_circle,
-                        color: Theme.of(context).highlightColor,
-                      ),
-                    )
+                    viewModel.answers[index - 1].isCurrentAnswer
+                        ? const ActiveIcon()
+                        : const DisableIcon(),
                   ],
                 ),
               ),
@@ -70,7 +70,41 @@ class SurveyResult extends StatelessWidget {
           ],
         );
       },
-      itemCount: 4,
+      itemCount: viewModel.answers.length + 1,
+    );
+  }
+}
+
+class ActiveIcon extends StatelessWidget {
+  const ActiveIcon({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 10),
+      child: Icon(
+        Icons.check_circle,
+        color: Theme.of(context).highlightColor,
+      ),
+    );
+  }
+}
+
+class DisableIcon extends StatelessWidget {
+  const DisableIcon({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 10),
+      child: Icon(
+        Icons.check_circle,
+        color: Theme.of(context).disabledColor,
+      ),
     );
   }
 }

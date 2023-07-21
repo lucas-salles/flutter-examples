@@ -4,7 +4,7 @@ import '../../components/components.dart';
 import '../../helpers/helpers.dart';
 import 'components/components.dart';
 import 'surveys_presenter.dart';
-import 'survey_view_model.dart';
+import 'survey_viewmodel.dart';
 
 class SurveysPage extends StatelessWidget {
   final SurveysPresenter presenter;

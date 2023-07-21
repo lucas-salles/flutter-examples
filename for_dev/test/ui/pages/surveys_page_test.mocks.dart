@@ -5,7 +5,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i3;
 
-import 'package:for_dev/ui/pages/surveys/survey_view_model.dart' as _i4;
+import 'package:for_dev/ui/pages/surveys/survey_viewmodel.dart' as _i4;
 import 'package:for_dev/ui/pages/surveys/surveys_presenter.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
