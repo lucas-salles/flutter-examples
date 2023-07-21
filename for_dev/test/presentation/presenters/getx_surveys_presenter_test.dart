@@ -1,13 +1,13 @@
 import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:for_dev/domain/helpers/helpers.dart';
-import 'package:for_dev/ui/helpers/helpers.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:for_dev/domain/entities/entities.dart';
+import 'package:for_dev/domain/helpers/helpers.dart';
 import 'package:for_dev/domain/usecases/usecases.dart';
 
+import 'package:for_dev/ui/helpers/helpers.dart';
 import 'package:for_dev/ui/pages/pages.dart';
 
 import 'package:for_dev/presentation/presenters/presenters.dart';
@@ -38,18 +38,18 @@ void main() {
 
   PostExpectation mockLoadSurveysCall() => when(loadSurveys.load());
 
-  void mockLoadSuveys(List<SurveyEntity> data) {
+  void mockLoadSurveys(List<SurveyEntity> data) {
     surveys = data;
     mockLoadSurveysCall().thenAnswer((_) async => surveys);
   }
 
-  void mockLoadSuveysError() =>
+  void mockLoadSurveysError() =>
       mockLoadSurveysCall().thenThrow(DomainError.unexpected);
 
   setUp(() {
     loadSurveys = MockLoadSurveys();
     sut = GetxSurveysPresenter(loadSurveys: loadSurveys);
-    mockLoadSuveys(mockValidData());
+    mockLoadSurveys(mockValidData());
   });
 
   test('Should call LoadSurveys on loadData', () async {
@@ -79,7 +79,7 @@ void main() {
   });
 
   test('Should emit correct events on failure', () async {
-    mockLoadSuveysError();
+    mockLoadSurveysError();
 
     expectLater(sut.isLoadingStream, emitsInOrder([true, false]));
     sut.surveysStream.listen(null,
