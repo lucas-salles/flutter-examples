@@ -25,9 +25,9 @@ import 'package:mockito/mockito.dart' as _i1;
 class MockFetchSecureCacheStorage extends _i1.Mock
     implements _i2.FetchSecureCacheStorage {
   @override
-  _i3.Future<String?> fetchSecure(String? key) => (super.noSuchMethod(
+  _i3.Future<String?> fetch(String? key) => (super.noSuchMethod(
         Invocation.method(
-          #fetchSecure,
+          #fetch,
           [key],
         ),
         returnValue: _i3.Future<String?>.value(),
