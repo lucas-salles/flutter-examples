@@ -43,6 +43,10 @@ class App extends StatelessWidget {
           page: makeSurveysPage,
           transition: Transition.fadeIn,
         ),
+        GetPage(
+          name: '/survey_result/:survey_id',
+          page: makeSurveyResultPage,
+        ),
       ],
     );
   }
