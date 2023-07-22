@@ -1,17 +1,11 @@
-import 'package:get/get.dart';
-
 import '../../domain/usecases/usecases.dart';
 import '../../ui/pages/pages.dart';
+import '../mixins/mixins.dart';
 
-class GetxSplashPresenter implements SplashPresenter {
+class GetxSplashPresenter with NavigationManager implements SplashPresenter {
   final LoadCurrentAccount loadCurrentAccount;
 
-  final _navigateTo = RxString('');
-
   GetxSplashPresenter({required this.loadCurrentAccount});
-
-  @override
-  Stream<String> get navigateToStream => _navigateTo.stream;
 
   @override
   Future<void> checkAccount({int durationInSeconds = 2}) async {
@@ -19,9 +13,9 @@ class GetxSplashPresenter implements SplashPresenter {
 
     try {
       await loadCurrentAccount.load();
-      _navigateTo.value = '/surveys';
+      navigateTo = '/surveys';
     } catch (error) {
-      _navigateTo.value = '/login';
+      navigateTo = '/login';
     }
   }
 }

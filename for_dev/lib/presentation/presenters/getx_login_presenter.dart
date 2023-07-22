@@ -2,13 +2,14 @@ import 'package:get/get.dart';
 
 import '../../ui/helpers/helpers.dart';
 import '../../ui/pages/pages.dart';
-
 import '../../domain/helpers/helpers.dart';
 import '../../domain/usecases/usecases.dart';
-
 import '../protocols/protocols.dart';
+import '../mixins/mixins.dart';
 
-class GetxLoginPresenter extends GetxController implements LoginPresenter {
+class GetxLoginPresenter extends GetxController
+    with LoadingManager, NavigationManager, MainErrorManager, FormValidManager
+    implements LoginPresenter {
   final Validation validation;
   final Authentication authentication;
   final SaveCurrentAccount saveCurrentAccount;
@@ -17,10 +18,6 @@ class GetxLoginPresenter extends GetxController implements LoginPresenter {
   String? _password;
   final _emailError = Rxn<UIError>();
   final _passwordError = Rxn<UIError>();
-  final _mainError = Rxn<UIError>();
-  final _navigateTo = RxString('');
-  final _isFormValid = false.obs;
-  final _isLoading = false.obs;
 
   GetxLoginPresenter({
     required this.authentication,
@@ -32,14 +29,6 @@ class GetxLoginPresenter extends GetxController implements LoginPresenter {
   Stream<UIError?> get emailErrorStream => _emailError.stream;
   @override
   Stream<UIError?> get passwordErrorStream => _passwordError.stream;
-  @override
-  Stream<UIError?> get mainErrorStream => _mainError.stream;
-  @override
-  Stream<String> get navigateToStream => _navigateTo.stream;
-  @override
-  Stream<bool> get isValidFormStream => _isFormValid.stream;
-  @override
-  Stream<bool> get isLoadingStream => _isLoading.stream;
 
   @override
   void validateEmail(String email) {
@@ -72,7 +61,7 @@ class GetxLoginPresenter extends GetxController implements LoginPresenter {
   }
 
   void _validateForm() {
-    _isFormValid.value = _emailError.value == null &&
+    isFormValid = _emailError.value == null &&
         _passwordError.value == null &&
         _email != null &&
         _password != null;
@@ -81,26 +70,26 @@ class GetxLoginPresenter extends GetxController implements LoginPresenter {
   @override
   Future<void> auth() async {
     try {
-      _mainError.value = null;
-      _isLoading.value = true;
+      mainError = null;
+      isLoading = true;
       final account = await authentication
           .auth(AuthenticationParams(email: _email!, secret: _password!));
       await saveCurrentAccount.save(account);
-      _navigateTo.value = '/surveys';
+      navigateTo = '/surveys';
     } on DomainError catch (error) {
       switch (error) {
         case DomainError.invalidCredentials:
-          _mainError.value = UIError.invalidCredentials;
+          mainError = UIError.invalidCredentials;
           break;
         default:
-          _mainError.value = UIError.unexpected;
+          mainError = UIError.unexpected;
       }
-      _isLoading.value = false;
+      isLoading = false;
     }
   }
 
   @override
   void goToSignUp() {
-    _navigateTo.value = '/signup';
+    navigateTo = '/signup';
   }
 }

@@ -91,7 +91,7 @@ void main() {
 
     sut.emailErrorStream
         .listen(expectAsync1((error) => expect(error, UIError.invalidField)));
-    sut.isFormValidStream
+    sut.isValidFormStream
         .listen(expectAsync1((isValid) => expect(isValid, false)));
 
     sut.validateEmail(email);
@@ -103,7 +103,7 @@ void main() {
 
     sut.emailErrorStream
         .listen(expectAsync1((error) => expect(error, UIError.requiredField)));
-    sut.isFormValidStream
+    sut.isValidFormStream
         .listen(expectAsync1((isValid) => expect(isValid, false)));
 
     sut.validateEmail(email);
@@ -112,7 +112,7 @@ void main() {
 
   test('Should emit null if email validation succeeds', () {
     sut.emailErrorStream.listen(expectAsync1((error) => expect(error, null)));
-    sut.isFormValidStream
+    sut.isValidFormStream
         .listen(expectAsync1((isValid) => expect(isValid, false)));
 
     sut.validateEmail(email);
@@ -137,7 +137,7 @@ void main() {
 
     sut.nameErrorStream
         .listen(expectAsync1((error) => expect(error, UIError.invalidField)));
-    sut.isFormValidStream
+    sut.isValidFormStream
         .listen(expectAsync1((isValid) => expect(isValid, false)));
 
     sut.validateName(name);
@@ -149,7 +149,7 @@ void main() {
 
     sut.nameErrorStream
         .listen(expectAsync1((error) => expect(error, UIError.requiredField)));
-    sut.isFormValidStream
+    sut.isValidFormStream
         .listen(expectAsync1((isValid) => expect(isValid, false)));
 
     sut.validateName(name);
@@ -159,7 +159,7 @@ void main() {
   test('Should emit null if password validation succeeds', () {
     sut.passwordErrorStream
         .listen(expectAsync1((error) => expect(error, null)));
-    sut.isFormValidStream
+    sut.isValidFormStream
         .listen(expectAsync1((isValid) => expect(isValid, false)));
 
     sut.validatePassword(password);
@@ -184,7 +184,7 @@ void main() {
 
     sut.passwordErrorStream
         .listen(expectAsync1((error) => expect(error, UIError.invalidField)));
-    sut.isFormValidStream
+    sut.isValidFormStream
         .listen(expectAsync1((isValid) => expect(isValid, false)));
 
     sut.validatePassword(password);
@@ -196,7 +196,7 @@ void main() {
 
     sut.passwordErrorStream
         .listen(expectAsync1((error) => expect(error, UIError.requiredField)));
-    sut.isFormValidStream
+    sut.isValidFormStream
         .listen(expectAsync1((isValid) => expect(isValid, false)));
 
     sut.validatePassword(password);
@@ -206,7 +206,7 @@ void main() {
   test('Should emit null if password validation succeeds', () {
     sut.passwordErrorStream
         .listen(expectAsync1((error) => expect(error, null)));
-    sut.isFormValidStream
+    sut.isValidFormStream
         .listen(expectAsync1((isValid) => expect(isValid, false)));
 
     sut.validatePassword(password);
@@ -234,7 +234,7 @@ void main() {
 
     sut.passwordConfirmationErrorStream
         .listen(expectAsync1((error) => expect(error, UIError.invalidField)));
-    sut.isFormValidStream
+    sut.isValidFormStream
         .listen(expectAsync1((isValid) => expect(isValid, false)));
 
     sut.validatePasswordConfirmation(passwordConfirmation);
@@ -248,7 +248,7 @@ void main() {
 
     sut.passwordConfirmationErrorStream
         .listen(expectAsync1((error) => expect(error, UIError.requiredField)));
-    sut.isFormValidStream
+    sut.isValidFormStream
         .listen(expectAsync1((isValid) => expect(isValid, false)));
 
     sut.validatePasswordConfirmation(passwordConfirmation);
@@ -258,7 +258,7 @@ void main() {
   test('Should emit null if passwordConfirmation validation succeeds', () {
     sut.passwordConfirmationErrorStream
         .listen(expectAsync1((error) => expect(error, null)));
-    sut.isFormValidStream
+    sut.isValidFormStream
         .listen(expectAsync1((isValid) => expect(isValid, false)));
 
     sut.validatePasswordConfirmation(passwordConfirmation);
@@ -266,7 +266,7 @@ void main() {
   });
 
   test('Should enable form button if all fields are valid', () async {
-    expectLater(sut.isFormValidStream, emitsInOrder([false, true]));
+    expectLater(sut.isValidFormStream, emitsInOrder([false, true]));
 
     sut.validateName(name);
     await Future.delayed(Duration.zero);
