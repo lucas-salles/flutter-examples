@@ -8,7 +8,7 @@ import '../protocols/protocols.dart';
 import '../mixins/mixins.dart';
 
 class GetxLoginPresenter extends GetxController
-    with LoadingManager, NavigationManager, MainErrorManager, FormValidManager
+    with LoadingManager, NavigationManager, UIErrorManager, FormManager
     implements LoginPresenter {
   final Validation validation;
   final Authentication authentication;
