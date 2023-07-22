@@ -18,22 +18,27 @@ import './survey_result_page_test.mocks.dart';
 void main() {
   late MockSurveyResultPresenter presenter;
   late StreamController<bool> isLoadingController;
+  late StreamController<bool> isSessionExpiredController;
   late StreamController<SurveyResultViewModel> surveyResultController;
 
   void initStreams() {
     isLoadingController = StreamController<bool>();
+    isSessionExpiredController = StreamController<bool>();
     surveyResultController = StreamController<SurveyResultViewModel>();
   }
 
   void mockStreams() {
     when(presenter.isLoadingStream)
         .thenAnswer((_) => isLoadingController.stream);
+    when(presenter.isSessionExpiredStream)
+        .thenAnswer((_) => isSessionExpiredController.stream);
     when(presenter.surveyResultStream)
         .thenAnswer((_) => surveyResultController.stream);
   }
 
   void closeStreams() {
     isLoadingController.close();
+    isSessionExpiredController.close();
     surveyResultController.close();
   }
 
@@ -47,7 +52,11 @@ void main() {
         GetPage(
           name: '/survey_result/:survey_id',
           page: () => SurveyResultPage(presenter),
-        )
+        ),
+        GetPage(
+          name: '/login',
+          page: () => const Scaffold(body: Text('fake login')),
+        ),
       ],
     );
     await mockNetworkImagesFor(() async {
@@ -142,5 +151,23 @@ void main() {
     final image =
         tester.widget<Image>(find.byType(Image)).image as NetworkImage;
     expect(image.url, 'Image 0');
+  });
+
+  testWidgets('Should logout', (WidgetTester tester) async {
+    await loadPage(tester);
+
+    isSessionExpiredController.add(true);
+    await tester.pumpAndSettle();
+
+    expect(Get.currentRoute, '/login');
+    expect(find.text('fake login'), findsOneWidget);
+  });
+
+  testWidgets('Should not logout', (WidgetTester tester) async {
+    await loadPage(tester);
+
+    isSessionExpiredController.add(false);
+    await tester.pump();
+    expect(Get.currentRoute, '/survey_result/any_survey_id');
   });
 }

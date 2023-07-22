@@ -34,6 +34,12 @@ class MockSurveyResultPresenter extends _i1.Mock
         returnValueForMissingStub: _i3.Stream<bool>.empty(),
       ) as _i3.Stream<bool>);
   @override
+  _i3.Stream<bool> get isSessionExpiredStream => (super.noSuchMethod(
+        Invocation.getter(#isSessionExpiredStream),
+        returnValue: _i3.Stream<bool>.empty(),
+        returnValueForMissingStub: _i3.Stream<bool>.empty(),
+      ) as _i3.Stream<bool>);
+  @override
   _i3.Stream<_i4.SurveyResultViewModel?> get surveyResultStream =>
       (super.noSuchMethod(
         Invocation.getter(#surveyResultStream),
