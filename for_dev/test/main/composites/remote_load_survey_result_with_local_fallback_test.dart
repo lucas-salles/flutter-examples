@@ -1,11 +1,11 @@
 import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:for_dev/domain/helpers/helpers.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:for_dev/data/usecases/usecases.dart';
 import 'package:for_dev/domain/entities/entities.dart';
+import 'package:for_dev/domain/helpers/helpers.dart';
 import 'package:for_dev/domain/usecases/usecases.dart';
 
 // Annotation which generates the remote_load_survey_result_with_local_fallback_test.mocks.dart library and the MockRemoteLoadSurveyResult and MockLocalLoadSurveyResult class.
@@ -79,6 +79,9 @@ void main() {
     mockLocalLoadCall().thenAnswer((_) async => localResult);
   }
 
+  void mockLocalLoadError() =>
+      mockLocalLoadCall().thenThrow(DomainError.unexpected);
+
   setUp(() {
     surveyId = faker.guid.guid();
     remote = MockRemoteLoadSurveyResult();
@@ -131,5 +134,14 @@ void main() {
     final response = await sut.loadBySurvey(surveyId: surveyId);
 
     expect(response, localResult);
+  });
+
+  test('Should throw UnexpectedError if local load fails', () async {
+    mockRemoteLoadError(DomainError.unexpected);
+    mockLocalLoadError();
+
+    final future = sut.loadBySurvey(surveyId: surveyId);
+
+    expect(future, throwsA(DomainError.unexpected));
   });
 }
