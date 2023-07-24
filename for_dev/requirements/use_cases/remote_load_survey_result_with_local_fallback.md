@@ -8,7 +8,7 @@
 
 > ## Exceção - Acesso negado
 
-1. Sistema repassa a exceção de acesso negado
+1. ✅ Sistema repassa a exceção de acesso negado
 
 > ## Exceção - Qualquer outro erro
 
