@@ -21,11 +21,17 @@ class RemoteLoadSurveyResultWithLocalFallback {
 }
 
 void main() {
-  test('Should call remote LoadBySurvey', () async {
-    final surveyId = faker.guid.guid();
-    final remote = MockRemoteLoadSurveyResult();
-    final sut = RemoteLoadSurveyResultWithLocalFallback(remote: remote);
+  late MockRemoteLoadSurveyResult remote;
+  late RemoteLoadSurveyResultWithLocalFallback sut;
+  late String surveyId;
 
+  setUp(() {
+    surveyId = faker.guid.guid();
+    remote = MockRemoteLoadSurveyResult();
+    sut = RemoteLoadSurveyResultWithLocalFallback(remote: remote);
+  });
+
+  test('Should call remote LoadBySurvey', () async {
     await sut.loadBySurvey(surveyId: surveyId);
 
     verify(remote.loadBySurvey(surveyId: surveyId)).called(1);
