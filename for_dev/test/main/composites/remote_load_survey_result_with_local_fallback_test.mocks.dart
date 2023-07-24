@@ -3,11 +3,14 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i5;
+import 'dart:async' as _i6;
 
+import 'package:for_dev/data/cache/cache.dart' as _i4;
 import 'package:for_dev/data/http/http.dart' as _i2;
+import 'package:for_dev/data/usecases/load_survey_result/local_load_survey_result.dart'
+    as _i7;
 import 'package:for_dev/data/usecases/load_survey_result/remote_load_survey_result.dart'
-    as _i4;
+    as _i5;
 import 'package:for_dev/domain/entities/entities.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -43,11 +46,21 @@ class _FakeSurveyResultEntity_1 extends _i1.SmartFake
         );
 }
 
+class _FakeCacheStorage_2 extends _i1.SmartFake implements _i4.CacheStorage {
+  _FakeCacheStorage_2(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [RemoteLoadSurveyResult].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockRemoteLoadSurveyResult extends _i1.Mock
-    implements _i4.RemoteLoadSurveyResult {
+    implements _i5.RemoteLoadSurveyResult {
   @override
   String get url => (super.noSuchMethod(
         Invocation.getter(#url),
@@ -67,7 +80,7 @@ class MockRemoteLoadSurveyResult extends _i1.Mock
         ),
       ) as _i2.HttpClient);
   @override
-  _i5.Future<_i3.SurveyResultEntity> loadBySurvey({String? surveyId}) =>
+  _i6.Future<_i3.SurveyResultEntity> loadBySurvey({String? surveyId}) =>
       (super.noSuchMethod(
         Invocation.method(
           #loadBySurvey,
@@ -75,7 +88,7 @@ class MockRemoteLoadSurveyResult extends _i1.Mock
           {#surveyId: surveyId},
         ),
         returnValue:
-            _i5.Future<_i3.SurveyResultEntity>.value(_FakeSurveyResultEntity_1(
+            _i6.Future<_i3.SurveyResultEntity>.value(_FakeSurveyResultEntity_1(
           this,
           Invocation.method(
             #loadBySurvey,
@@ -84,7 +97,7 @@ class MockRemoteLoadSurveyResult extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i5.Future<_i3.SurveyResultEntity>.value(_FakeSurveyResultEntity_1(
+            _i6.Future<_i3.SurveyResultEntity>.value(_FakeSurveyResultEntity_1(
           this,
           Invocation.method(
             #loadBySurvey,
@@ -92,5 +105,77 @@ class MockRemoteLoadSurveyResult extends _i1.Mock
             {#surveyId: surveyId},
           ),
         )),
-      ) as _i5.Future<_i3.SurveyResultEntity>);
+      ) as _i6.Future<_i3.SurveyResultEntity>);
+}
+
+/// A class which mocks [LocalLoadSurveyResult].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockLocalLoadSurveyResult extends _i1.Mock
+    implements _i7.LocalLoadSurveyResult {
+  @override
+  _i4.CacheStorage get cacheStorage => (super.noSuchMethod(
+        Invocation.getter(#cacheStorage),
+        returnValue: _FakeCacheStorage_2(
+          this,
+          Invocation.getter(#cacheStorage),
+        ),
+        returnValueForMissingStub: _FakeCacheStorage_2(
+          this,
+          Invocation.getter(#cacheStorage),
+        ),
+      ) as _i4.CacheStorage);
+  @override
+  _i6.Future<_i3.SurveyResultEntity> loadBySurvey({String? surveyId}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #loadBySurvey,
+          [],
+          {#surveyId: surveyId},
+        ),
+        returnValue:
+            _i6.Future<_i3.SurveyResultEntity>.value(_FakeSurveyResultEntity_1(
+          this,
+          Invocation.method(
+            #loadBySurvey,
+            [],
+            {#surveyId: surveyId},
+          ),
+        )),
+        returnValueForMissingStub:
+            _i6.Future<_i3.SurveyResultEntity>.value(_FakeSurveyResultEntity_1(
+          this,
+          Invocation.method(
+            #loadBySurvey,
+            [],
+            {#surveyId: surveyId},
+          ),
+        )),
+      ) as _i6.Future<_i3.SurveyResultEntity>);
+  @override
+  _i6.Future<void> validate(String? surveyId) => (super.noSuchMethod(
+        Invocation.method(
+          #validate,
+          [surveyId],
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+  @override
+  _i6.Future<void> save({
+    required String? surveyId,
+    required _i3.SurveyResultEntity? surveyResult,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #save,
+          [],
+          {
+            #surveyId: surveyId,
+            #surveyResult: surveyResult,
+          },
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
 }
