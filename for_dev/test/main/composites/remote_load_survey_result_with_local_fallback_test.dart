@@ -6,7 +6,7 @@ import 'package:mockito/mockito.dart';
 import 'package:for_dev/data/usecases/usecases.dart';
 import 'package:for_dev/domain/entities/entities.dart';
 import 'package:for_dev/domain/helpers/helpers.dart';
-import 'package:for_dev/domain/usecases/usecases.dart';
+import 'package:for_dev/main/composites/composites.dart';
 
 // Annotation which generates the remote_load_survey_result_with_local_fallback_test.mocks.dart library and the MockRemoteLoadSurveyResult and MockLocalLoadSurveyResult class.
 @GenerateNiceMocks([
@@ -14,31 +14,6 @@ import 'package:for_dev/domain/usecases/usecases.dart';
   MockSpec<LocalLoadSurveyResult>(),
 ])
 import 'remote_load_survey_result_with_local_fallback_test.mocks.dart';
-
-class RemoteLoadSurveyResultWithLocalFallback implements LoadSurveyResult {
-  final RemoteLoadSurveyResult remote;
-  final LocalLoadSurveyResult local;
-
-  RemoteLoadSurveyResultWithLocalFallback({
-    required this.remote,
-    required this.local,
-  });
-
-  @override
-  Future<SurveyResultEntity> loadBySurvey({String? surveyId}) async {
-    try {
-      final surveyResult = await remote.loadBySurvey(surveyId: surveyId);
-      await local.save(surveyId: surveyId!, surveyResult: surveyResult);
-      return surveyResult;
-    } catch (error) {
-      if (error == DomainError.accessDenied) {
-        rethrow;
-      }
-      await local.validate(surveyId!);
-      return await local.loadBySurvey(surveyId: surveyId);
-    }
-  }
-}
 
 void main() {
   late MockRemoteLoadSurveyResult remote;
