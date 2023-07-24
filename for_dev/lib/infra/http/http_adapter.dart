@@ -31,14 +31,14 @@ class HttpAdapter implements HttpClient {
               headers: defaultHeaders,
               body: jsonBody,
             )
-            .timeout(const Duration(seconds: 10));
+            .timeout(const Duration(seconds: 5));
       } else if (method == 'get') {
         response = await client
             .get(
               Uri.parse(url),
               headers: defaultHeaders,
             )
-            .timeout(const Duration(seconds: 10));
+            .timeout(const Duration(seconds: 5));
       }
     } catch (error) {
       throw HttpError.serverError;

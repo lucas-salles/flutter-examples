@@ -162,18 +162,11 @@ class MockLocalLoadSurveyResult extends _i1.Mock
         returnValueForMissingStub: _i6.Future<void>.value(),
       ) as _i6.Future<void>);
   @override
-  _i6.Future<void> save({
-    required String? surveyId,
-    required _i3.SurveyResultEntity? surveyResult,
-  }) =>
+  _i6.Future<void> save(_i3.SurveyResultEntity? surveyResult) =>
       (super.noSuchMethod(
         Invocation.method(
           #save,
-          [],
-          {
-            #surveyId: surveyId,
-            #surveyResult: surveyResult,
-          },
+          [surveyResult],
         ),
         returnValue: _i6.Future<void>.value(),
         returnValueForMissingStub: _i6.Future<void>.value(),
