@@ -56,4 +56,14 @@ class MockSurveyResultPresenter extends _i1.Mock
         returnValue: _i3.Future<void>.value(),
         returnValueForMissingStub: _i3.Future<void>.value(),
       ) as _i3.Future<void>);
+  @override
+  _i3.Future<void> save({required String? answer}) => (super.noSuchMethod(
+        Invocation.method(
+          #save,
+          [],
+          {#answer: answer},
+        ),
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
 }
