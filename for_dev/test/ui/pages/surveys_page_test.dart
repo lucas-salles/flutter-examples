@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -48,13 +48,19 @@ void main() {
     presenter = MockSurveysPresenter();
     initStreams();
     mockStreams();
+    final routeObserver = Get.put<RouteObserver>(RouteObserver<PageRoute>());
     final surveysPage = GetMaterialApp(
       initialRoute: '/surveys',
+      navigatorObservers: [routeObserver],
       getPages: [
         GetPage(name: '/surveys', page: () => SurveysPage(presenter)),
         GetPage(
           name: '/any_route',
-          page: () => const Scaffold(body: Text('fake page')),
+          page: () => Scaffold(
+              appBar: AppBar(
+                title: const Text('any title'),
+              ),
+              body: const Text('fake page')),
         ),
         GetPage(
           name: '/login',
@@ -89,6 +95,16 @@ void main() {
     await loadPage(tester);
 
     verify(presenter.loadData()).called(1);
+  });
+
+  testWidgets('Should call LoadSurveys on reload', (WidgetTester tester) async {
+    await loadPage(tester);
+
+    navigateToController.add('/any_route');
+    await tester.pumpAndSettle();
+    await tester.pageBack();
+
+    verify(presenter.loadData()).called(2);
   });
 
   testWidgets('Should handle loading correctly', (WidgetTester tester) async {
