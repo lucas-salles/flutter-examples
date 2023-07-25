@@ -11,7 +11,7 @@ class GetxSurveyResultPresenter extends GetxController
     with LoadingManager, SessionManager
     implements SurveyResultPresenter {
   final LoadSurveyResult loadSurveyResult;
-  final SaveSurveyResult? saveSurveyResult;
+  final SaveSurveyResult saveSurveyResult;
   final String surveyId;
 
   final _surveyResult = Rxn<SurveyResultViewModel>();
@@ -21,7 +21,7 @@ class GetxSurveyResultPresenter extends GetxController
 
   GetxSurveyResultPresenter({
     required this.loadSurveyResult,
-    this.saveSurveyResult,
+    required this.saveSurveyResult,
     required this.surveyId,
   });
 
@@ -32,7 +32,7 @@ class GetxSurveyResultPresenter extends GetxController
 
   @override
   Future<void> save({required String answer}) async {
-    showResultOnAction(() => saveSurveyResult!.save(answer: answer));
+    showResultOnAction(() => saveSurveyResult.save(answer: answer));
   }
 
   Future<void> showResultOnAction(
