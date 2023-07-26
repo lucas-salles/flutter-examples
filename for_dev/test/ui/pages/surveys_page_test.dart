@@ -7,6 +7,8 @@ import 'package:mockito/mockito.dart';
 
 import 'package:for_dev/ui/helpers/helpers.dart';
 import 'package:for_dev/ui/pages/pages.dart';
+
+import '../../mocks/mocks.dart';
 import '../helpers/helpers.dart';
 
 // Annotation which generates the surveys_page_test.mocks.dart library and the MockSurveysPresenter class.
@@ -53,21 +55,6 @@ void main() {
       page: () => SurveysPage(presenter),
     ));
   }
-
-  List<SurveyViewModel> makeSurveys() => [
-        const SurveyViewModel(
-          id: '1',
-          question: 'Question 1',
-          date: 'Date 1',
-          didAnswer: true,
-        ),
-        const SurveyViewModel(
-          id: '2',
-          question: 'Question 2',
-          date: 'Date 2',
-          didAnswer: false,
-        ),
-      ];
 
   tearDown(() {
     closeStreams();
@@ -119,7 +106,7 @@ void main() {
       (WidgetTester tester) async {
     await loadPage(tester);
 
-    surveysController.add(makeSurveys());
+    surveysController.add(FakeSurveysFactory.makeViewModel());
     await tester.pump();
 
     expect(find.text('Algo errado aconteceu. Tente novamente em breve.'),
@@ -146,7 +133,7 @@ void main() {
       (WidgetTester tester) async {
     await loadPage(tester);
 
-    surveysController.add(makeSurveys());
+    surveysController.add(FakeSurveysFactory.makeViewModel());
     await tester.pump();
 
     await tester.tap(find.text('Question 1'));

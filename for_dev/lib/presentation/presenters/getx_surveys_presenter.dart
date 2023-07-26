@@ -28,7 +28,7 @@ class GetxSurveysPresenter extends GetxController
           .map((survey) => SurveyViewModel(
                 id: survey.id,
                 question: survey.question,
-                date: DateFormat('dd MMM  yyyy').format(survey.dateTime),
+                date: DateFormat('dd MMM yyyy').format(survey.dateTime),
                 didAnswer: survey.didAnswer,
               ))
           .toList();

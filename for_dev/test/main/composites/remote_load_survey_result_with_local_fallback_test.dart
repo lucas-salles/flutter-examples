@@ -8,6 +8,8 @@ import 'package:for_dev/domain/entities/entities.dart';
 import 'package:for_dev/domain/helpers/helpers.dart';
 import 'package:for_dev/main/composites/composites.dart';
 
+import '../../mocks/mocks.dart';
+
 // Annotation which generates the remote_load_survey_result_with_local_fallback_test.mocks.dart library and the MockRemoteLoadSurveyResult and MockLocalLoadSurveyResult class.
 @GenerateNiceMocks([
   MockSpec<RemoteLoadSurveyResult>(),
@@ -23,23 +25,11 @@ void main() {
   late SurveyResultEntity remoteResult;
   late SurveyResultEntity localResult;
 
-  SurveyResultEntity mockSurveyResult() => SurveyResultEntity(
-        surveyId: faker.guid.guid(),
-        question: faker.lorem.sentence(),
-        answers: [
-          SurveyAnswerEntity(
-            answer: faker.lorem.sentence(),
-            isCurrentAnswer: faker.randomGenerator.boolean(),
-            percent: faker.randomGenerator.integer(100),
-          ),
-        ],
-      );
-
   PostExpectation mockRemoteLoadCall() =>
       when(remote.loadBySurvey(surveyId: anyNamed('surveyId')));
 
   void mockRemoteLoad() {
-    remoteResult = mockSurveyResult();
+    remoteResult = FakeSurveyResultFactory.makeEntity();
     mockRemoteLoadCall().thenAnswer((_) async => remoteResult);
   }
 
@@ -50,7 +40,7 @@ void main() {
       when(local.loadBySurvey(surveyId: anyNamed('surveyId')));
 
   void mockLocalLoad() {
-    localResult = mockSurveyResult();
+    localResult = FakeSurveyResultFactory.makeEntity();
     mockLocalLoadCall().thenAnswer((_) async => localResult);
   }
 

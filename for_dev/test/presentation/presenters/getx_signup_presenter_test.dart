@@ -3,14 +3,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:for_dev/ui/helpers/errors/errors.dart';
-
 import 'package:for_dev/domain/entities/entities.dart';
 import 'package:for_dev/domain/helpers/helpers.dart';
 import 'package:for_dev/domain/usecases/usecases.dart';
-
 import 'package:for_dev/presentation/presenters/presenters.dart';
 import 'package:for_dev/presentation/protocols/protocols.dart';
+import 'package:for_dev/ui/helpers/errors/errors.dart';
+
+import '../../mocks/mocks.dart';
 
 // Annotation which generates the getx_signup_presenter_test.mocks.dart library and the MockValidation, MockAddAccount and MockSaveCurrentAccount class.
 @GenerateNiceMocks([
@@ -29,7 +29,7 @@ void main() {
   late String name;
   late String password;
   late String passwordConfirmation;
-  late String token;
+  late AccountEntity account;
 
   PostExpectation mockValidationCall(String? field) => when(validation.validate(
       field: field ?? anyNamed('field'), input: anyNamed('input')));
@@ -40,8 +40,9 @@ void main() {
 
   PostExpectation mockAddAccountCall() => when(addAccount.add(any));
 
-  void mockAddAccount() {
-    mockAddAccountCall().thenAnswer((_) async => AccountEntity(token));
+  void mockAddAccount(AccountEntity data) {
+    account = data;
+    mockAddAccountCall().thenAnswer((_) async => data);
   }
 
   void mockAuthenticationError(DomainError error) {
@@ -68,9 +69,8 @@ void main() {
     name = faker.person.name();
     password = faker.internet.password();
     passwordConfirmation = faker.internet.password();
-    token = faker.guid.guid();
     mockValidation();
-    mockAddAccount();
+    mockAddAccount(FakeAccountFactory.makeEntity());
   });
 
   test('Should call Validation with correct email', () {
@@ -302,7 +302,7 @@ void main() {
 
     await sut.signUp();
 
-    verify(saveCurrentAccount.save(AccountEntity(token))).called(1);
+    verify(saveCurrentAccount.save(account)).called(1);
   });
 
   test('Should emit UnexpectedError if SaveCurrentAccount fails', () async {

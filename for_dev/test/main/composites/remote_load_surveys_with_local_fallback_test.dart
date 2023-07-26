@@ -1,4 +1,3 @@
-import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -7,6 +6,8 @@ import 'package:for_dev/data/usecases/usecases.dart';
 import 'package:for_dev/domain/entities/entities.dart';
 import 'package:for_dev/domain/helpers/helpers.dart';
 import 'package:for_dev/main/composites/composites.dart';
+
+import '../../mocks/mocks.dart';
 
 // Annotation which generates the remote_load_surveys_with_local_fallback_test.mocks.dart library and the MockRemoteLoadSurveys and MockLocalLoadSurveys class.
 @GenerateNiceMocks([
@@ -22,19 +23,10 @@ void main() {
   late List<SurveyEntity> remoteSurveys;
   late List<SurveyEntity> localSurveys;
 
-  List<SurveyEntity> mockSurveys() => [
-        SurveyEntity(
-          id: faker.guid.guid(),
-          question: faker.randomGenerator.string(10),
-          dateTime: faker.date.dateTime(),
-          didAnswer: faker.randomGenerator.boolean(),
-        )
-      ];
-
   PostExpectation mockRemoteLoadCall() => when(remote.load());
 
   void mockRemoteLoad() {
-    remoteSurveys = mockSurveys();
+    remoteSurveys = FakeSurveysFactory.makeEntities();
     mockRemoteLoadCall().thenAnswer((_) async => remoteSurveys);
   }
 
@@ -44,7 +36,7 @@ void main() {
   PostExpectation mockLocalLoadCall() => when(local.load());
 
   void mockLocalLoad() {
-    localSurveys = mockSurveys();
+    localSurveys = FakeSurveysFactory.makeEntities();
     mockLocalLoadCall().thenAnswer((_) async => localSurveys);
   }
 

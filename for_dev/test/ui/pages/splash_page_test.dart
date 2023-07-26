@@ -6,6 +6,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:for_dev/ui/pages/pages.dart';
+
 import '../helpers/helpers.dart';
 
 // Annotation which generates the splash_page_test.mocks.dart library and the MockSplashPresenter class.

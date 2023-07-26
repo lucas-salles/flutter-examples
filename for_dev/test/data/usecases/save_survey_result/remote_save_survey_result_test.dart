@@ -8,6 +8,8 @@ import 'package:for_dev/data/usecases/usecases.dart';
 import 'package:for_dev/domain/entities/entities.dart';
 import 'package:for_dev/domain/helpers/helpers.dart';
 
+import '../../../mocks/mocks.dart';
+
 // Annotation which generates the remote_save_survey_result_test.mocks.dart library and the MockHttpClient class.
 @GenerateNiceMocks([MockSpec<HttpClient>()])
 import './remote_save_survey_result_test.mocks.dart';
@@ -18,27 +20,6 @@ void main() {
   late MockHttpClient httpClient;
   late RemoteSaveSurveyResult sut;
   late Map surveyResult;
-
-  Map mockValidData() => {
-        'surveyId': faker.guid.guid(),
-        'question': faker.randomGenerator.string(50),
-        'answers': [
-          {
-            'image': faker.internet.httpUrl(),
-            'answer': faker.randomGenerator.string(20),
-            'percent': faker.randomGenerator.integer(100),
-            'count': faker.randomGenerator.integer(1000),
-            'isCurrentAccountAnswer': faker.randomGenerator.boolean(),
-          },
-          {
-            'answer': faker.randomGenerator.string(20),
-            'percent': faker.randomGenerator.integer(100),
-            'count': faker.randomGenerator.integer(1000),
-            'isCurrentAccountAnswer': faker.randomGenerator.boolean(),
-          }
-        ],
-        'date': faker.date.dateTime().toIso8601String(),
-      };
 
   PostExpectation mockRequest() => when(httpClient.request(
         url: anyNamed('url'),
@@ -58,7 +39,7 @@ void main() {
     answer = faker.lorem.sentence();
     httpClient = MockHttpClient();
     sut = RemoteSaveSurveyResult(url: url, httpClient: httpClient);
-    mockHttpData(mockValidData());
+    mockHttpData(FakeSurveyResultFactory.makeApiJson());
   });
 
   test('Should call HttpClient with correct values', () async {
@@ -101,7 +82,7 @@ void main() {
   test(
       'Should throw UnexpectedError if HttpClient returns 200 with invalid data',
       () async {
-    mockHttpData({'invalid_key': 'invalid_value'});
+    mockHttpData(FakeSurveyResultFactory.makeInvalidApiJson());
 
     final response = sut.save(answer: answer);
 

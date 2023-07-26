@@ -3,7 +3,6 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:for_dev/domain/usecases/usecases.dart';
-
 import 'package:for_dev/presentation/presenters/presenters.dart';
 
 // Annotation which generates the getx_splash_presenter_test.mocks.dart library and the MockLoadCurrentAccount class.

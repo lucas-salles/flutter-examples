@@ -1,4 +1,3 @@
-import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -6,11 +5,11 @@ import 'package:mockito/mockito.dart';
 import 'package:for_dev/domain/entities/entities.dart';
 import 'package:for_dev/domain/helpers/helpers.dart';
 import 'package:for_dev/domain/usecases/usecases.dart';
-
+import 'package:for_dev/presentation/presenters/presenters.dart';
 import 'package:for_dev/ui/helpers/helpers.dart';
 import 'package:for_dev/ui/pages/pages.dart';
 
-import 'package:for_dev/presentation/presenters/presenters.dart';
+import '../../mocks/mocks.dart';
 
 // Annotation which generates the getx_surveys_presenter_test.mocks.dart library and the MockLoadSurveys class.
 @GenerateNiceMocks([MockSpec<LoadSurveys>()])
@@ -20,21 +19,6 @@ void main() {
   late MockLoadSurveys loadSurveys;
   late GetxSurveysPresenter sut;
   late List<SurveyEntity> surveys;
-
-  List<SurveyEntity> mockValidData() => [
-        SurveyEntity(
-          id: faker.guid.guid(),
-          question: faker.lorem.sentence(),
-          dateTime: DateTime(2020, 2, 20),
-          didAnswer: true,
-        ),
-        SurveyEntity(
-          id: faker.guid.guid(),
-          question: faker.lorem.sentence(),
-          dateTime: DateTime(2018, 10, 3),
-          didAnswer: false,
-        ),
-      ];
 
   PostExpectation mockLoadSurveysCall() => when(loadSurveys.load());
 
@@ -52,7 +36,7 @@ void main() {
   setUp(() {
     loadSurveys = MockLoadSurveys();
     sut = GetxSurveysPresenter(loadSurveys: loadSurveys);
-    mockLoadSurveys(mockValidData());
+    mockLoadSurveys(FakeSurveysFactory.makeEntities());
   });
 
   test('Should call LoadSurveys on loadData', () async {
@@ -67,13 +51,13 @@ void main() {
           SurveyViewModel(
             id: surveys[0].id,
             question: surveys[0].question,
-            date: '20 Fev 2020',
+            date: '02 Feb 2020',
             didAnswer: surveys[0].didAnswer,
           ),
           SurveyViewModel(
             id: surveys[1].id,
             question: surveys[1].question,
-            date: '03 Out 2018',
+            date: '20 Dec 2018',
             didAnswer: surveys[1].didAnswer,
           ),
         ])));

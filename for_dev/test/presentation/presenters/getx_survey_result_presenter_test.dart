@@ -6,11 +6,11 @@ import 'package:mockito/mockito.dart';
 import 'package:for_dev/domain/entities/entities.dart';
 import 'package:for_dev/domain/helpers/helpers.dart';
 import 'package:for_dev/domain/usecases/usecases.dart';
-
+import 'package:for_dev/presentation/presenters/presenters.dart';
 import 'package:for_dev/ui/helpers/helpers.dart';
 import 'package:for_dev/ui/pages/pages.dart';
 
-import 'package:for_dev/presentation/presenters/presenters.dart';
+import '../../mocks/mocks.dart';
 
 // Annotation which generates the getx_survey_result_presenter_test.mocks.dart library and the MockLoadSurveyResult and MockSaveSurveyResult class.
 @GenerateNiceMocks([
@@ -27,24 +27,6 @@ void main() {
   late SurveyResultEntity saveResult;
   late String surveyId;
   late String answer;
-
-  SurveyResultEntity mockValidData() => SurveyResultEntity(
-        surveyId: faker.guid.guid(),
-        question: faker.lorem.sentence(),
-        answers: [
-          SurveyAnswerEntity(
-            image: faker.internet.httpUrl(),
-            answer: faker.lorem.sentence(),
-            isCurrentAnswer: faker.randomGenerator.boolean(),
-            percent: faker.randomGenerator.integer(100),
-          ),
-          SurveyAnswerEntity(
-            answer: faker.lorem.sentence(),
-            isCurrentAnswer: faker.randomGenerator.boolean(),
-            percent: faker.randomGenerator.integer(100),
-          ),
-        ],
-      );
 
   PostExpectation mockLoadSurveyResultCall() =>
       when(loadSurveyResult.loadBySurvey(surveyId: anyNamed('surveyId')));
@@ -97,8 +79,8 @@ void main() {
       saveSurveyResult: saveSurveyResult,
       surveyId: surveyId,
     );
-    mockLoadSurveyResult(mockValidData());
-    mockSaveSurveyResult(mockValidData());
+    mockLoadSurveyResult(FakeSurveyResultFactory.makeEntity());
+    mockSaveSurveyResult(FakeSurveyResultFactory.makeEntity());
   });
 
   group('loadData', () {

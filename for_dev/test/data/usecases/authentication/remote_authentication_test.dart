@@ -5,9 +5,10 @@ import 'package:mockito/mockito.dart';
 
 import 'package:for_dev/domain/helpers/helpers.dart';
 import 'package:for_dev/domain/usecases/usecases.dart';
-
 import 'package:for_dev/data/http/http.dart';
 import 'package:for_dev/data/usecases/usecases.dart';
+
+import '../../../mocks/mocks.dart';
 
 // Annotation which generates the remote_authentication.test.mocks.dart library and the MockHttpClient class.
 @GenerateNiceMocks([MockSpec<HttpClient>()])
@@ -18,11 +19,7 @@ void main() {
   late MockHttpClient httpClient;
   late String url;
   late AuthenticationParams params;
-
-  Map mockValidData() => {
-        'accessToken': faker.guid.guid(),
-        'name': faker.person.name(),
-      };
+  late Map apiResult;
 
   PostExpectation mockRequest() => when(httpClient.request(
         url: anyNamed('url'),
@@ -31,20 +28,18 @@ void main() {
       ));
 
   void mockHttpData(Map data) {
+    apiResult = data;
     mockRequest().thenAnswer((_) async => data);
   }
 
-  void mockHttpError(HttpError error) {
-    mockRequest().thenThrow(error);
-  }
+  void mockHttpError(HttpError error) => mockRequest().thenThrow(error);
 
   setUp(() {
     httpClient = MockHttpClient();
     url = faker.internet.httpUrl();
     sut = RemoteAuthentication(httpClient: httpClient, url: url);
-    params = AuthenticationParams(
-        email: faker.internet.email(), secret: faker.internet.password());
-    mockHttpData(mockValidData());
+    params = FakeParamsFactory.makeAuthentication();
+    mockHttpData(FakeAccountFactory.makeApiJson());
   });
 
   test('Should call HttpClient with correct values', () async {
@@ -91,12 +86,9 @@ void main() {
   });
 
   test('Should return an Account if HttpClient returns 200', () async {
-    final validData = mockValidData();
-    mockHttpData(validData);
-
     final account = await sut.auth(params);
 
-    expect(account.token, validData['accessToken']);
+    expect(account.token, apiResult['accessToken']);
   });
 
   test(
