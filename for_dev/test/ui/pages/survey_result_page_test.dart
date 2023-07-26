@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/route_manager.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:network_image_mock/network_image_mock.dart';
@@ -10,6 +9,7 @@ import 'package:network_image_mock/network_image_mock.dart';
 import 'package:for_dev/ui/helpers/helpers.dart';
 import 'package:for_dev/ui/pages/pages.dart';
 import 'package:for_dev/ui/pages/survey_result/components/components.dart';
+import '../helpers/helpers.dart';
 
 // Annotation which generates the survey_result_page_test.mocks.dart library and the MockSurveyResultPresenter class.
 @GenerateNiceMocks([MockSpec<SurveyResultPresenter>()])
@@ -46,21 +46,11 @@ void main() {
     presenter = MockSurveyResultPresenter();
     initStreams();
     mockStreams();
-    final surveysPage = GetMaterialApp(
-      initialRoute: '/survey_result/any_survey_id',
-      getPages: [
-        GetPage(
-          name: '/survey_result/:survey_id',
-          page: () => SurveyResultPage(presenter),
-        ),
-        GetPage(
-          name: '/login',
-          page: () => const Scaffold(body: Text('fake login')),
-        ),
-      ],
-    );
     await mockNetworkImagesFor(() async {
-      await tester.pumpWidget(surveysPage);
+      await tester.pumpWidget(makePage(
+        path: '/survey_result/any_survey_id',
+        page: () => SurveyResultPage(presenter),
+      ));
     });
   }
 
@@ -159,7 +149,7 @@ void main() {
     isSessionExpiredController.add(true);
     await tester.pumpAndSettle();
 
-    expect(Get.currentRoute, '/login');
+    expect(currentRoute, '/login');
     expect(find.text('fake login'), findsOneWidget);
   });
 
@@ -168,7 +158,7 @@ void main() {
 
     isSessionExpiredController.add(false);
     await tester.pump();
-    expect(Get.currentRoute, '/survey_result/any_survey_id');
+    expect(currentRoute, '/survey_result/any_survey_id');
   });
 
   testWidgets('Should call save on list item click',

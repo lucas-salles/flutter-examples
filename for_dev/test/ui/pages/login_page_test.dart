@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:for_dev/ui/helpers/helpers.dart';
 import 'package:for_dev/ui/pages/pages.dart';
+import '../helpers/helpers.dart';
 
 // Annotation which generates the login_page_test.mocks.dart library and the MockLoginPresenter class.
 @GenerateNiceMocks([MockSpec<LoginPresenter>()])
@@ -60,17 +60,10 @@ void main() {
     presenter = MockLoginPresenter();
     initStreams();
     mockStreams();
-    final loginPage = GetMaterialApp(
-      initialRoute: '/login',
-      getPages: [
-        GetPage(name: '/login', page: () => LoginPage(presenter)),
-        GetPage(
-          name: '/any_route',
-          page: () => const Scaffold(body: Text('fake page')),
-        ),
-      ],
-    );
-    await tester.pumpWidget(loginPage);
+    await tester.pumpWidget(makePage(
+      path: '/login',
+      page: () => LoginPage(presenter),
+    ));
   }
 
   tearDown(() {
@@ -227,7 +220,7 @@ void main() {
     navigateToController.add('/any_route');
     await tester.pumpAndSettle();
 
-    expect(Get.currentRoute, '/any_route');
+    expect(currentRoute, '/any_route');
     expect(find.text('fake page'), findsOneWidget);
   });
 
@@ -236,7 +229,7 @@ void main() {
 
     navigateToController.add('');
     await tester.pump();
-    expect(Get.currentRoute, '/login');
+    expect(currentRoute, '/login');
   });
 
   testWidgets('Should call goToSignUp on link click',
