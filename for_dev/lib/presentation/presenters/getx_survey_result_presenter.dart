@@ -15,7 +15,7 @@ class GetxSurveyResultPresenter extends GetxController
   final SaveSurveyResult saveSurveyResult;
   final String surveyId;
 
-  final _surveyResult = Rxn<SurveyResultViewModel>();
+  final _surveyResult = Rx<SurveyResultViewModel?>(null);
 
   @override
   Stream<SurveyResultViewModel?> get surveyResultStream => _surveyResult.stream;

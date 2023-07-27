@@ -45,11 +45,11 @@ class MockSurveysPresenter extends _i1.Mock implements _i2.SurveysPresenter {
             _i3.Stream<List<_i4.SurveyViewModel>>.empty(),
       ) as _i3.Stream<List<_i4.SurveyViewModel>>);
   @override
-  _i3.Stream<String> get navigateToStream => (super.noSuchMethod(
+  _i3.Stream<String?> get navigateToStream => (super.noSuchMethod(
         Invocation.getter(#navigateToStream),
-        returnValue: _i3.Stream<String>.empty(),
-        returnValueForMissingStub: _i3.Stream<String>.empty(),
-      ) as _i3.Stream<String>);
+        returnValue: _i3.Stream<String?>.empty(),
+        returnValueForMissingStub: _i3.Stream<String?>.empty(),
+      ) as _i3.Stream<String?>);
   @override
   _i3.Future<void> loadData() => (super.noSuchMethod(
         Invocation.method(

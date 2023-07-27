@@ -80,7 +80,8 @@ class MockRemoteLoadSurveyResult extends _i1.Mock
         ),
       ) as _i2.HttpClient);
   @override
-  _i6.Future<_i3.SurveyResultEntity> loadBySurvey({String? surveyId}) =>
+  _i6.Future<_i3.SurveyResultEntity> loadBySurvey(
+          {required String? surveyId}) =>
       (super.noSuchMethod(
         Invocation.method(
           #loadBySurvey,
@@ -126,7 +127,8 @@ class MockLocalLoadSurveyResult extends _i1.Mock
         ),
       ) as _i4.CacheStorage);
   @override
-  _i6.Future<_i3.SurveyResultEntity> loadBySurvey({String? surveyId}) =>
+  _i6.Future<_i3.SurveyResultEntity> loadBySurvey(
+          {required String? surveyId}) =>
       (super.noSuchMethod(
         Invocation.method(
           #loadBySurvey,

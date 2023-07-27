@@ -15,11 +15,11 @@ import './splash_page_test.mocks.dart';
 
 void main() {
   late MockSplashPresenter presenter;
-  late StreamController<String> navigateToController;
+  late StreamController<String?> navigateToController;
 
   Future<void> loadPage(WidgetTester tester) async {
     presenter = MockSplashPresenter();
-    navigateToController = StreamController<String>();
+    navigateToController = StreamController<String?>();
     when(presenter.navigateToStream)
         .thenAnswer((_) => navigateToController.stream);
     await tester.pumpWidget(makePage(

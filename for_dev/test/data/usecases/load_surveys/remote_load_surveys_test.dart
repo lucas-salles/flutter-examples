@@ -8,7 +8,7 @@ import 'package:for_dev/domain/helpers/helpers.dart';
 import 'package:for_dev/data/http/http.dart';
 import 'package:for_dev/data/usecases/usecases.dart';
 
-import '../../../mocks/mocks.dart';
+import '../../../infra/mocks/mocks.dart';
 
 // Annotation which generates the remote_load_surveys_test.mocks.dart library and the MockHttpClient class.
 @GenerateNiceMocks([MockSpec<HttpClient>()])
@@ -36,7 +36,7 @@ void main() {
     url = faker.internet.httpUrl();
     httpClient = MockHttpClient();
     sut = RemoteLoadSurveys(url: url, httpClient: httpClient);
-    mockHttpData(FakeSurveysFactory.makeApiJson());
+    mockHttpData(ApiFactory.makeSurveyList());
   });
 
   test('Should call HttpClient with correct values', () async {
@@ -67,7 +67,7 @@ void main() {
   test(
       'Should throw UnexpectedError if HttpClient returns 200 with invalid data',
       () async {
-    mockHttpData(FakeSurveysFactory.makeInvalidApiJson());
+    mockHttpData(ApiFactory.makeInvalidList());
 
     final response = sut.load();
 

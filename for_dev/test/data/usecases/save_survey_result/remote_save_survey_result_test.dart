@@ -8,7 +8,7 @@ import 'package:for_dev/data/usecases/usecases.dart';
 import 'package:for_dev/domain/entities/entities.dart';
 import 'package:for_dev/domain/helpers/helpers.dart';
 
-import '../../../mocks/mocks.dart';
+import '../../../infra/mocks/mocks.dart';
 
 // Annotation which generates the remote_save_survey_result_test.mocks.dart library and the MockHttpClient class.
 @GenerateNiceMocks([MockSpec<HttpClient>()])
@@ -39,7 +39,7 @@ void main() {
     answer = faker.lorem.sentence();
     httpClient = MockHttpClient();
     sut = RemoteSaveSurveyResult(url: url, httpClient: httpClient);
-    mockHttpData(FakeSurveyResultFactory.makeApiJson());
+    mockHttpData(ApiFactory.makeSurveyResultJson());
   });
 
   test('Should call HttpClient with correct values', () async {
@@ -82,7 +82,7 @@ void main() {
   test(
       'Should throw UnexpectedError if HttpClient returns 200 with invalid data',
       () async {
-    mockHttpData(FakeSurveyResultFactory.makeInvalidApiJson());
+    mockHttpData(ApiFactory.makeInvalidJson());
 
     final response = sut.save(answer: answer);
 

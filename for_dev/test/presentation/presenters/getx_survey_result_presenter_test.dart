@@ -10,7 +10,7 @@ import 'package:for_dev/presentation/presenters/presenters.dart';
 import 'package:for_dev/ui/helpers/helpers.dart';
 import 'package:for_dev/ui/pages/pages.dart';
 
-import '../../mocks/mocks.dart';
+import '../../domain/mocks/mocks.dart';
 
 // Annotation which generates the getx_survey_result_presenter_test.mocks.dart library and the MockLoadSurveyResult and MockSaveSurveyResult class.
 @GenerateNiceMocks([
@@ -79,8 +79,8 @@ void main() {
       saveSurveyResult: saveSurveyResult,
       surveyId: surveyId,
     );
-    mockLoadSurveyResult(FakeSurveyResultFactory.makeEntity());
-    mockSaveSurveyResult(FakeSurveyResultFactory.makeEntity());
+    mockLoadSurveyResult(EntityFactory.makeSurveyResult());
+    mockSaveSurveyResult(EntityFactory.makeSurveyResult());
   });
 
   group('loadData', () {

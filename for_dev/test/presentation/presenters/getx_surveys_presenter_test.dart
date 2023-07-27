@@ -9,7 +9,7 @@ import 'package:for_dev/presentation/presenters/presenters.dart';
 import 'package:for_dev/ui/helpers/helpers.dart';
 import 'package:for_dev/ui/pages/pages.dart';
 
-import '../../mocks/mocks.dart';
+import '../../domain/mocks/mocks.dart';
 
 // Annotation which generates the getx_surveys_presenter_test.mocks.dart library and the MockLoadSurveys class.
 @GenerateNiceMocks([MockSpec<LoadSurveys>()])
@@ -36,7 +36,7 @@ void main() {
   setUp(() {
     loadSurveys = MockLoadSurveys();
     sut = GetxSurveysPresenter(loadSurveys: loadSurveys);
-    mockLoadSurveys(FakeSurveysFactory.makeEntities());
+    mockLoadSurveys(EntityFactory.makeSurveyList());
   });
 
   test('Should call LoadSurveys on loadData', () async {

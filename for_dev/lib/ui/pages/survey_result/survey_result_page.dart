@@ -30,7 +30,7 @@ class SurveyResultPage extends StatelessWidget
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return ReloadScreen(
-                  error: snapshot.error as String,
+                  error: '${snapshot.error}',
                   reload: presenter.loadData,
                 );
               }

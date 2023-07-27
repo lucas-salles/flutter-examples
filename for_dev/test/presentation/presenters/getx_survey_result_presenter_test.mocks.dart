@@ -37,7 +37,8 @@ class _FakeSurveyResultEntity_0 extends _i1.SmartFake
 /// See the documentation for Mockito's code generation for more information.
 class MockLoadSurveyResult extends _i1.Mock implements _i3.LoadSurveyResult {
   @override
-  _i4.Future<_i2.SurveyResultEntity> loadBySurvey({String? surveyId}) =>
+  _i4.Future<_i2.SurveyResultEntity> loadBySurvey(
+          {required String? surveyId}) =>
       (super.noSuchMethod(
         Invocation.method(
           #loadBySurvey,

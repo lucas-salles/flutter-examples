@@ -25,7 +25,7 @@ void main() {
 
   group('shared', () {
     test('Should throw ServerError if invalid metho is provided', () async {
-      final future = sut.request(url: url.toString(), method: 'invalid_method');
+      final future = sut.request(url: url, method: 'invalid_method');
 
       expect(future, throwsA(HttpError.serverError));
     });
@@ -53,7 +53,7 @@ void main() {
 
     test('Should call post with correct values', () async {
       await sut.request(
-        url: url.toString(),
+        url: url,
         method: 'post',
         body: {'any_key': 'any_value'},
       );
@@ -67,7 +67,7 @@ void main() {
       ));
 
       await sut.request(
-        url: url.toString(),
+        url: url,
         method: 'post',
         body: {'any_key': 'any_value'},
         headers: {'any_header': 'any_value'},
@@ -100,7 +100,7 @@ void main() {
 
       final response = await sut.request(url: url, method: 'post');
 
-      expect(response, {});
+      expect(response, null);
     });
 
     test('Should return empty map if post returns 204', () async {
@@ -108,7 +108,7 @@ void main() {
 
       final response = await sut.request(url: url, method: 'post');
 
-      expect(response, {});
+      expect(response, null);
     });
 
     test('Should return empty map if post returns 204 with data', () async {
@@ -116,7 +116,7 @@ void main() {
 
       final response = await sut.request(url: url, method: 'post');
 
-      expect(response, {});
+      expect(response, null);
     });
 
     test('Should return BadRequestError if post with empty body returns 400',
@@ -198,7 +198,7 @@ void main() {
 
     test('Should call get with correct values', () async {
       await sut.request(
-        url: url.toString(),
+        url: url,
         method: 'get',
       );
       verify(client.get(
@@ -210,7 +210,7 @@ void main() {
       ));
 
       await sut.request(
-        url: url.toString(),
+        url: url,
         method: 'get',
         headers: {'any_header': 'any_value'},
       );
@@ -235,7 +235,7 @@ void main() {
 
       final response = await sut.request(url: url, method: 'get');
 
-      expect(response, {});
+      expect(response, null);
     });
 
     test('Should return empty map if get returns 204', () async {
@@ -243,7 +243,7 @@ void main() {
 
       final response = await sut.request(url: url, method: 'get');
 
-      expect(response, {});
+      expect(response, null);
     });
 
     test('Should return empty map if get returns 204 with data', () async {
@@ -251,7 +251,7 @@ void main() {
 
       final response = await sut.request(url: url, method: 'get');
 
-      expect(response, {});
+      expect(response, null);
     });
 
     test('Should return BadRequestError if get with empty body returns 400',
@@ -334,7 +334,7 @@ void main() {
 
     test('Should call put with correct values', () async {
       await sut.request(
-        url: url.toString(),
+        url: url,
         method: 'put',
         body: {'any_key': 'any_value'},
       );
@@ -348,7 +348,7 @@ void main() {
       ));
 
       await sut.request(
-        url: url.toString(),
+        url: url,
         method: 'put',
         body: {'any_key': 'any_value'},
         headers: {'any_header': 'any_value'},
@@ -381,7 +381,7 @@ void main() {
 
       final response = await sut.request(url: url, method: 'put');
 
-      expect(response, {});
+      expect(response, null);
     });
 
     test('Should return empty map if put returns 204', () async {
@@ -389,7 +389,7 @@ void main() {
 
       final response = await sut.request(url: url, method: 'put');
 
-      expect(response, {});
+      expect(response, null);
     });
 
     test('Should return empty map if put returns 204 with data', () async {
@@ -397,7 +397,7 @@ void main() {
 
       final response = await sut.request(url: url, method: 'put');
 
-      expect(response, {});
+      expect(response, null);
     });
 
     test('Should return BadRequestError if put with empty body returns 400',

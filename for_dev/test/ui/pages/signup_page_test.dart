@@ -22,9 +22,9 @@ void main() {
   late StreamController<UIError?> passwordErrorController;
   late StreamController<UIError?> passwordConfirmationErrorController;
   late StreamController<UIError?> mainErrorController;
+  late StreamController<String?> navigateToController;
   late StreamController<bool> isFormValidController;
   late StreamController<bool> isLoadingController;
-  late StreamController<String> navigateToController;
 
   void initStreams() {
     nameErrorController = StreamController<UIError?>();
@@ -32,9 +32,9 @@ void main() {
     passwordErrorController = StreamController<UIError?>();
     passwordConfirmationErrorController = StreamController<UIError?>();
     mainErrorController = StreamController<UIError?>();
+    navigateToController = StreamController<String?>();
     isFormValidController = StreamController<bool>();
     isLoadingController = StreamController<bool>();
-    navigateToController = StreamController<String>();
   }
 
   void mockStreams() {
@@ -235,6 +235,10 @@ void main() {
     isLoadingController.add(false);
     await tester.pump();
     expect(find.byType(CircularProgressIndicator), findsNothing);
+
+    isLoadingController.add(true);
+    await tester.pump();
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
   });
 
   testWidgets('Should present error message if signUp fails',

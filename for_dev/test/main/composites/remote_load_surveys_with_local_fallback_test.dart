@@ -7,7 +7,7 @@ import 'package:for_dev/domain/entities/entities.dart';
 import 'package:for_dev/domain/helpers/helpers.dart';
 import 'package:for_dev/main/composites/composites.dart';
 
-import '../../mocks/mocks.dart';
+import '../../domain/mocks/mocks.dart';
 
 // Annotation which generates the remote_load_surveys_with_local_fallback_test.mocks.dart library and the MockRemoteLoadSurveys and MockLocalLoadSurveys class.
 @GenerateNiceMocks([
@@ -26,7 +26,7 @@ void main() {
   PostExpectation mockRemoteLoadCall() => when(remote.load());
 
   void mockRemoteLoad() {
-    remoteSurveys = FakeSurveysFactory.makeEntities();
+    remoteSurveys = EntityFactory.makeSurveyList();
     mockRemoteLoadCall().thenAnswer((_) async => remoteSurveys);
   }
 
@@ -36,7 +36,7 @@ void main() {
   PostExpectation mockLocalLoadCall() => when(local.load());
 
   void mockLocalLoad() {
-    localSurveys = FakeSurveysFactory.makeEntities();
+    localSurveys = EntityFactory.makeSurveyList();
     mockLocalLoadCall().thenAnswer((_) async => localSurveys);
   }
 

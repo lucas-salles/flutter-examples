@@ -2,8 +2,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+import 'package:for_dev/domain/entities/entities.dart';
 import 'package:for_dev/domain/usecases/usecases.dart';
 import 'package:for_dev/presentation/presenters/presenters.dart';
+
+import '../../domain/mocks/mocks.dart';
 
 // Annotation which generates the getx_splash_presenter_test.mocks.dart library and the MockLoadCurrentAccount class.
 @GenerateNiceMocks([MockSpec<LoadCurrentAccount>()])
@@ -13,13 +16,19 @@ void main() {
   late GetxSplashPresenter sut;
   late MockLoadCurrentAccount loadCurrentAccount;
 
-  void mockLoadCurrentAccountError() {
-    when(loadCurrentAccount.load()).thenThrow(Exception());
-  }
+  PostExpectation mockLoadCurrentAccountCall() =>
+      when(loadCurrentAccount.load());
+
+  void mockLoadCurrentAccount({required AccountEntity account}) =>
+      mockLoadCurrentAccountCall().thenAnswer((_) async => account);
+
+  void mockLoadCurrentAccountError() =>
+      mockLoadCurrentAccountCall().thenThrow(Exception());
 
   setUp(() {
     loadCurrentAccount = MockLoadCurrentAccount();
     sut = GetxSplashPresenter(loadCurrentAccount: loadCurrentAccount);
+    mockLoadCurrentAccount(account: EntityFactory.makeAccount());
   });
 
   test('Should call loadCurrentAccount', () async {

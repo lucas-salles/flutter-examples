@@ -16,8 +16,8 @@ class GetxLoginPresenter extends GetxController
 
   String? _email;
   String? _password;
-  final _emailError = Rxn<UIError>();
-  final _passwordError = Rxn<UIError>();
+  final _emailError = Rx<UIError?>(null);
+  final _passwordError = Rx<UIError?>(null);
 
   GetxLoginPresenter({
     required this.authentication,

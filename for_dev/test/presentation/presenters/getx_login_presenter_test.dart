@@ -10,7 +10,7 @@ import 'package:for_dev/presentation/presenters/presenters.dart';
 import 'package:for_dev/presentation/protocols/protocols.dart';
 import 'package:for_dev/ui/helpers/errors/errors.dart';
 
-import '../../mocks/mocks.dart';
+import '../../domain/mocks/mocks.dart';
 
 // Annotation which generates the getx_login_presenter_test.mocks.dart library and the MockValidation, MockAuthentication and MockSaveCurrentAccount class.
 @GenerateNiceMocks([
@@ -66,7 +66,7 @@ void main() {
     email = faker.internet.email();
     password = faker.internet.password();
     mockValidation();
-    mockAuthentication(FakeAccountFactory.makeEntity());
+    mockAuthentication(EntityFactory.makeAccount());
   });
 
   test('Should call Validation with correct email', () {

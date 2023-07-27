@@ -8,7 +8,8 @@ import 'package:for_dev/domain/usecases/usecases.dart';
 import 'package:for_dev/data/http/http.dart';
 import 'package:for_dev/data/usecases/usecases.dart';
 
-import '../../../mocks/mocks.dart';
+import '../../../domain/mocks/mocks.dart';
+import '../../../infra/mocks/mocks.dart';
 
 // Annotation which generates the remote_authentication.test.mocks.dart library and the MockHttpClient class.
 @GenerateNiceMocks([MockSpec<HttpClient>()])
@@ -38,8 +39,8 @@ void main() {
     httpClient = MockHttpClient();
     url = faker.internet.httpUrl();
     sut = RemoteAuthentication(httpClient: httpClient, url: url);
-    params = FakeParamsFactory.makeAuthentication();
-    mockHttpData(FakeAccountFactory.makeApiJson());
+    params = ParamsFactory.makeAuthentication();
+    mockHttpData(ApiFactory.makeAccountJson());
   });
 
   test('Should call HttpClient with correct values', () async {

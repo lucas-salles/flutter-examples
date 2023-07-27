@@ -41,7 +41,7 @@ class _SurveysPageState extends State<SurveysPage>
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return ReloadScreen(
-                  error: snapshot.error as String,
+                  error: '${snapshot.error}',
                   reload: widget.presenter.loadData,
                 );
               }

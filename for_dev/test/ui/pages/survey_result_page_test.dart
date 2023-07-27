@@ -10,7 +10,7 @@ import 'package:for_dev/ui/helpers/helpers.dart';
 import 'package:for_dev/ui/pages/pages.dart';
 import 'package:for_dev/ui/pages/survey_result/components/components.dart';
 
-import '../../mocks/mocks.dart';
+import '../mocks/mocks.dart';
 import '../helpers/helpers.dart';
 
 // Annotation which generates the survey_result_page_test.mocks.dart library and the MockSurveyResultPresenter class.
@@ -21,12 +21,12 @@ void main() {
   late MockSurveyResultPresenter presenter;
   late StreamController<bool> isLoadingController;
   late StreamController<bool> isSessionExpiredController;
-  late StreamController<SurveyResultViewModel> surveyResultController;
+  late StreamController<SurveyResultViewModel?> surveyResultController;
 
   void initStreams() {
     isLoadingController = StreamController<bool>();
     isSessionExpiredController = StreamController<bool>();
-    surveyResultController = StreamController<SurveyResultViewModel>();
+    surveyResultController = StreamController<SurveyResultViewModel?>();
   }
 
   void mockStreams() {
@@ -77,6 +77,10 @@ void main() {
     isLoadingController.add(false);
     await tester.pump();
     expect(find.byType(CircularProgressIndicator), findsNothing);
+
+    isLoadingController.add(true);
+    await tester.pump();
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
   });
 
   testWidgets('Should present error if surveysStream fails',
@@ -107,7 +111,7 @@ void main() {
       (WidgetTester tester) async {
     await loadPage(tester);
 
-    surveyResultController.add(FakeSurveyResultFactory.makeViewModel());
+    surveyResultController.add(ViewModelFactory.makeSurveyResult());
     await mockNetworkImagesFor(() async {
       await tester.pump();
     });
@@ -149,7 +153,7 @@ void main() {
       (WidgetTester tester) async {
     await loadPage(tester);
 
-    surveyResultController.add(FakeSurveyResultFactory.makeViewModel());
+    surveyResultController.add(ViewModelFactory.makeSurveyResult());
     await mockNetworkImagesFor(() async {
       await tester.pump();
     });
@@ -162,7 +166,7 @@ void main() {
       (WidgetTester tester) async {
     await loadPage(tester);
 
-    surveyResultController.add(FakeSurveyResultFactory.makeViewModel());
+    surveyResultController.add(ViewModelFactory.makeSurveyResult());
     await mockNetworkImagesFor(() async {
       await tester.pump();
     });

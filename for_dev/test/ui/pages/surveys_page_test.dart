@@ -8,7 +8,7 @@ import 'package:mockito/mockito.dart';
 import 'package:for_dev/ui/helpers/helpers.dart';
 import 'package:for_dev/ui/pages/pages.dart';
 
-import '../../mocks/mocks.dart';
+import '../mocks/mocks.dart';
 import '../helpers/helpers.dart';
 
 // Annotation which generates the surveys_page_test.mocks.dart library and the MockSurveysPresenter class.
@@ -20,13 +20,13 @@ void main() {
   late StreamController<bool> isLoadingController;
   late StreamController<bool> isSessionExpiredController;
   late StreamController<List<SurveyViewModel>> surveysController;
-  late StreamController<String> navigateToController;
+  late StreamController<String?> navigateToController;
 
   void initStreams() {
     isLoadingController = StreamController<bool>();
     isSessionExpiredController = StreamController<bool>();
     surveysController = StreamController<List<SurveyViewModel>>();
-    navigateToController = StreamController<String>();
+    navigateToController = StreamController<String?>();
   }
 
   void mockStreams() {
@@ -87,6 +87,10 @@ void main() {
     isLoadingController.add(false);
     await tester.pump();
     expect(find.byType(CircularProgressIndicator), findsNothing);
+
+    isLoadingController.add(true);
+    await tester.pump();
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
   });
 
   testWidgets('Should present error if surveysStream fails',
@@ -106,7 +110,7 @@ void main() {
       (WidgetTester tester) async {
     await loadPage(tester);
 
-    surveysController.add(FakeSurveysFactory.makeViewModel());
+    surveysController.add(ViewModelFactory.makeSurveyList());
     await tester.pump();
 
     expect(find.text('Algo errado aconteceu. Tente novamente em breve.'),
@@ -133,7 +137,7 @@ void main() {
       (WidgetTester tester) async {
     await loadPage(tester);
 
-    surveysController.add(FakeSurveysFactory.makeViewModel());
+    surveysController.add(ViewModelFactory.makeSurveyList());
     await tester.pump();
 
     await tester.tap(find.text('Question 1'));
