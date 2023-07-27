@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../helpers/helpers.dart';
 
-void showLoading(BuildContext context) {
-  showDialog(
+Future<void> showLoading(BuildContext context) async {
+  await showDialog(
     context: context,
     builder: (context) {
       return SimpleDialog(
